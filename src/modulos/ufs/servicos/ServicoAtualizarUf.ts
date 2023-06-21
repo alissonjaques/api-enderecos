@@ -4,6 +4,7 @@ import ServicoListarUfs from './ServicoListarUfs';
 import { getCustomRepository } from 'typeorm';
 import ValidacoesAtualizar from '../validacoes/put/ValidacoesAtualizar';
 import existeUf from '../validacoes/delete/existeUf';
+import AppErros from '@compartilhado/erros/AppErros';
 
 interface IRequest {
   codigo_uf: number;
@@ -20,6 +21,13 @@ class ServicoAtualizarUf {
     status,
   }: IRequest): Promise<Uf[]> {
     const repositorioUf = getCustomRepository(RepositorioUf);
+
+    if (!codigo_uf) {
+      throw new AppErros(
+        `Não foi possível atualizar o UF no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
+      );
+    }
+
     const uf = await existeUf(codigo_uf, repositorioUf, 'atualizar');
 
     const validacoes = new ValidacoesAtualizar();
