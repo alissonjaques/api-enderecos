@@ -21,7 +21,9 @@ class ServicoCriarUf {
     await repositorioUf.save(uf);
 
     const servicoListarUfs = new ServicoListarUfs();
-    return servicoListarUfs.executa();
+    return (await servicoListarUfs.executa()).sort(
+      (atualUf, proximoUf) => proximoUf.codigo_uf - atualUf.codigo_uf,
+    );
   }
 }
 

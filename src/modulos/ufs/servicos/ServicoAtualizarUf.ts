@@ -32,8 +32,9 @@ class ServicoAtualizarUf {
     await repositorioUf.save(uf);
 
     const servicoListarUfs = new ServicoListarUfs();
-    const ufs = await servicoListarUfs.executa();
-    return ufs;
+    return (await servicoListarUfs.executa()).sort(
+      (atualUf, proximoUf) => proximoUf.codigo_uf - atualUf.codigo_uf,
+    );
   }
 }
 

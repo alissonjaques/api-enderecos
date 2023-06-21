@@ -15,8 +15,8 @@ app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppErros) {
       return response.status(error.statusCode).json({
-        status: `${error.statusCode}`,
         mensagem: error.mensagem,
+        status: error.statusCode,
       });
     }
     console.log(error);
@@ -41,8 +41,8 @@ app.use(
         'Não foi possível incluir o campo no banco de dados.<br>Motivo: valor maior que a precisão especificada usado para esta coluna';
     }
     return response.status(500).json({
-      status: '500',
       mensagem: mensagemErro,
+      status: 500,
     });
   },
 );

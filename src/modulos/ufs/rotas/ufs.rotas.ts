@@ -5,9 +5,9 @@ const ufsRoutes = Router();
 const controladorUf = new ControladorUf();
 
 ufsRoutes.get('/', controladorUf.index);
-ufsRoutes.get('/:codigoUf', controladorUf.show);
+ufsRoutes.get('/:codigoUF', controladorUf.show);
 ufsRoutes.post('/', controladorUf.create);
 ufsRoutes.put('/', controladorUf.update);
-ufsRoutes.delete('/:codigoUf', controladorUf.delete);
+ufsRoutes.delete('/:codigoUF', controladorUf.delete);
 
 export default ufsRoutes;

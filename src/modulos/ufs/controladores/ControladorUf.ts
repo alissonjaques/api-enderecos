@@ -14,8 +14,8 @@ export default class ControladorUf {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { codigoUf } = request.params;
-    const codigo_uf = Number(codigoUf);
+    const { codigoUF } = request.params;
+    const codigo_uf = Number(codigoUF);
     const servicoDetalhamentoUf = new ServicoDetalhamentoUf();
     const uf = await servicoDetalhamentoUf.execute({ codigo_uf });
 
@@ -35,8 +35,8 @@ export default class ControladorUf {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { codigoUf, sigla, nome, status } = request.body;
-    const codigo_uf = Number(codigoUf);
+    const { codigoUF, sigla, nome, status } = request.body;
+    const codigo_uf = Number(codigoUF);
     const servicoAtualizarUf = new ServicoAtualizarUf();
     const uf = await servicoAtualizarUf.executa({
       codigo_uf,
@@ -48,8 +48,8 @@ export default class ControladorUf {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { codigoUf } = request.params;
-    const codigo_uf = Number(codigoUf);
+    const { codigoUF } = request.params;
+    const codigo_uf = Number(codigoUF);
     const servicoDeletarUf = new ServicoDeletarUf();
     await servicoDeletarUf.execute({ codigo_uf });
 
