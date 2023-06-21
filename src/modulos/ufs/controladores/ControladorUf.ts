@@ -25,7 +25,7 @@ export default class ControladorUf {
   public async create(request: Request, response: Response): Promise<Response> {
     const { sigla, nome, status } = request.body;
     const servicoCriarUf = new ServicoCriarUf();
-    const uf = await servicoCriarUf.execute({
+    const uf = await servicoCriarUf.executa({
       sigla,
       nome,
       status,

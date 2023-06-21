@@ -15,14 +15,34 @@ app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppErros) {
       return response.status(error.statusCode).json({
-        status: 'erro',
+        status: `${error.statusCode}`,
         mensagem: error.mensagem,
       });
     }
     console.log(error);
+    let mensagemErro = 'erro interno no servidor';
+    if (error.message.includes('ORA-12899')) {
+      const mensagem = error.message
+        .replace(/"/g, '')
+        .replace(/ORA-12899: /g, '')
+        .replace(/C##NODE.TB_UF\./g, '')
+        .replace(
+          /value too large for column/g,
+          'Valor muito grande para a coluna',
+        )
+        .replace(/real/g, 'atual')
+        .replace(/actual/g, 'atual')
+        .replace(/maximum/g, 'máximo');
+      mensagemErro =
+        'Não foi possível incluir o registro no banco de dados.<br>Motivo:' +
+        mensagem;
+    } else if (error.message.includes('ORA-01438')) {
+      mensagemErro =
+        'Não foi possível incluir o registro no banco de dados.<br>Motivo: valor maior que a precisão especificada usado para esta coluna';
+    }
     return response.status(500).json({
-      status: 'erro',
-      mensagem: 'Erro interno no servidor',
+      status: '500',
+      mensagem: mensagemErro,
     });
   },
 );

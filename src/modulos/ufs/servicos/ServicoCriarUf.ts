@@ -1,7 +1,8 @@
 import { getCustomRepository, getManager } from 'typeorm';
 import { RepositorioUf } from '../typeorm/repositorios/RepositorioUf';
 import Uf from '../typeorm/entidades/Uf';
-import AppErros from '@compartilhado/erros/AppErros';
+import Validacoes from '../validacoes/Validacoes';
+import ServicoListarUfs from './ServicoListarUfs';
 
 interface IRequest {
   sigla: string;
@@ -10,24 +11,17 @@ interface IRequest {
 }
 
 class ServicoCriarUf {
-  public async execute({ sigla, nome, status }: IRequest): Promise<Uf> {
+  public async executa({ sigla, nome, status }: IRequest): Promise<Uf[]> {
     const repositorioUf = getCustomRepository(RepositorioUf);
-    const siglaEhNumero = Number(sigla);
-    console.log(siglaEhNumero);
-    const existeUfComNomeJaCadastrado = await repositorioUf.findByName(nome);
-    if (existeUfComNomeJaCadastrado) {
-      throw new AppErros(
-        `Não foi possível criar UF.
-        <br>Já existe uma Unidade Federativa com o nome = ${nome} cadastrada no sistema.`,
-      );
-    }
-
+    const validacoes = new Validacoes();
+    await validacoes.validar({ sigla, nome, status });
     const codigo_uf = await getSequence();
     const uf = repositorioUf.create({ codigo_uf, sigla, nome, status });
 
     await repositorioUf.save(uf);
 
-    return uf;
+    const servicoListarUfs = new ServicoListarUfs();
+    return servicoListarUfs.execute();
   }
 }
 
