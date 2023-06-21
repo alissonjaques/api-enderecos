@@ -8,7 +8,7 @@ import ServicoDeletarUf from '../servicos/ServicoDeletarUf';
 export default class ControladorUf {
   public async index(request: Request, response: Response): Promise<Response> {
     const servicoListarUfs = new ServicoListarUfs();
-    const ufs = await servicoListarUfs.execute();
+    const ufs = await servicoListarUfs.executa();
 
     return response.json(ufs);
   }
@@ -35,17 +35,15 @@ export default class ControladorUf {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { sigla, nome, status } = request.body;
-    const { codigoUf } = request.params;
+    const { codigoUf, sigla, nome, status } = request.body;
     const codigo_uf = Number(codigoUf);
     const servicoAtualizarUf = new ServicoAtualizarUf();
-    const uf = await servicoAtualizarUf.execute({
+    const uf = await servicoAtualizarUf.executa({
       codigo_uf,
       sigla,
       nome,
       status,
     });
-
     return response.json(uf);
   }
 

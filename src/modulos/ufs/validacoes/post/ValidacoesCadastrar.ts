@@ -1,6 +1,6 @@
+import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import existeUfComNomeJaCadastrado from './existeUfComNomeJaCadastrado';
 import existeUfComSiglaJaCadastrada from './existeUfComSiglaJaCadastrada';
-import validarCamposObrigatorios from './validarCamposObrigatorios';
 
 interface IRequest {
   sigla: string;
@@ -8,12 +8,12 @@ interface IRequest {
   status: number;
 }
 
-class Validacoes {
+class ValidacoesCadastrar {
   async validar({ sigla, nome, status }: IRequest): Promise<void> {
     await existeUfComSiglaJaCadastrada(sigla);
     await existeUfComNomeJaCadastrado(nome);
-    validarCamposObrigatorios(sigla, nome, status);
+    validarCamposObrigatorios(sigla, nome, status, 'incluir');
   }
 }
 
-export default Validacoes;
+export default ValidacoesCadastrar;

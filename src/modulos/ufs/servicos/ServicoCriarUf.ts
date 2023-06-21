@@ -1,8 +1,8 @@
 import { getCustomRepository, getManager } from 'typeorm';
 import { RepositorioUf } from '../typeorm/repositorios/RepositorioUf';
 import Uf from '../typeorm/entidades/Uf';
-import Validacoes from '../validacoes/Validacoes';
 import ServicoListarUfs from './ServicoListarUfs';
+import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 
 interface IRequest {
   sigla: string;
@@ -13,7 +13,7 @@ interface IRequest {
 class ServicoCriarUf {
   public async executa({ sigla, nome, status }: IRequest): Promise<Uf[]> {
     const repositorioUf = getCustomRepository(RepositorioUf);
-    const validacoes = new Validacoes();
+    const validacoes = new ValidacoesCadastrar();
     await validacoes.validar({ sigla, nome, status });
     const codigo_uf = await getSequence();
     const uf = repositorioUf.create({ codigo_uf, sigla, nome, status });
@@ -21,7 +21,7 @@ class ServicoCriarUf {
     await repositorioUf.save(uf);
 
     const servicoListarUfs = new ServicoListarUfs();
-    return servicoListarUfs.execute();
+    return servicoListarUfs.executa();
   }
 }
 

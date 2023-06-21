@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import { RepositorioUf } from '../typeorm/repositorios/RepositorioUf';
+import { RepositorioUf } from '../../typeorm/repositorios/RepositorioUf';
 import AppErros from '@compartilhado/erros/AppErros';
 
 async function existeUfComSiglaJaCadastrada(sigla: string): Promise<void> {

@@ -1,8 +1,9 @@
-import AppErros from '@compartilhado/erros/AppErros';
-import { getCustomRepository, getManager } from 'typeorm';
 import { RepositorioUf } from '../typeorm/repositorios/RepositorioUf';
 import Uf from '../typeorm/entidades/Uf';
-import Entidade from '@compartilhado/enums/Entidade';
+import ServicoListarUfs from './ServicoListarUfs';
+import { getCustomRepository } from 'typeorm';
+import ValidacoesAtualizar from '../validacoes/put/ValidacoesAtualizar';
+import existeUf from '../validacoes/delete/existeUf';
 
 interface IRequest {
   codigo_uf: number;
@@ -12,28 +13,17 @@ interface IRequest {
 }
 
 class ServicoAtualizarUf {
-  public async execute({
+  public async executa({
     codigo_uf,
     sigla,
     nome,
     status,
-  }: IRequest): Promise<Uf> {
+  }: IRequest): Promise<Uf[]> {
     const repositorioUf = getCustomRepository(RepositorioUf);
+    const uf = await existeUf(codigo_uf, repositorioUf, 'atualizar');
 
-    const uf = await repositorioUf.findOne(codigo_uf);
-
-    if (!uf) {
-      throw new AppErros(`Produto com id = ${codigo_uf} não encontrado.`);
-    }
-
-    const existeUfComNomeJaCadastrado = await repositorioUf.findByName(nome);
-
-    if (existeUfComNomeJaCadastrado && nome !== uf.nome) {
-      throw new AppErros(
-        `Não foi atualizar a UF de id = ${codigo_uf}.
-        <br>Já existe uma Unidade Federativa com o nome = ${nome} cadastrada no sistema.`,
-      );
-    }
+    const validacoes = new ValidacoesAtualizar();
+    await validacoes.validar({ codigo_uf, sigla, nome, status }, uf);
 
     uf.nome = nome;
     uf.sigla = sigla;
@@ -41,7 +31,9 @@ class ServicoAtualizarUf {
 
     await repositorioUf.save(uf);
 
-    return uf;
+    const servicoListarUfs = new ServicoListarUfs();
+    const ufs = await servicoListarUfs.executa();
+    return ufs;
   }
 }
 

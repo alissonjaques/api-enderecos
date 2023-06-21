@@ -34,11 +34,11 @@ app.use(
         .replace(/actual/g, 'atual')
         .replace(/maximum/g, 'máximo');
       mensagemErro =
-        'Não foi possível incluir o registro no banco de dados.<br>Motivo:' +
+        'Não foi possível incluir o campo no banco de dados.<br>Motivo:' +
         mensagem;
     } else if (error.message.includes('ORA-01438')) {
       mensagemErro =
-        'Não foi possível incluir o registro no banco de dados.<br>Motivo: valor maior que a precisão especificada usado para esta coluna';
+        'Não foi possível incluir o campo no banco de dados.<br>Motivo: valor maior que a precisão especificada usado para esta coluna';
     }
     return response.status(500).json({
       status: '500',
