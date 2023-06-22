@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import ControladorUf from '../controladores/ControladorUf';
 
-const ufsRoutes = Router();
+const ufsRotas = Router();
 const controladorUf = new ControladorUf();
 
-ufsRoutes.get('/', controladorUf.consultaPersonalizadaUf);
-ufsRoutes.post('/', controladorUf.inserir);
-ufsRoutes.put('/', controladorUf.atualizar);
-ufsRoutes.delete('/:codigoUF', controladorUf.deletar);
+ufsRotas.get('/', controladorUf.consultaPersonalizadaUf);
+ufsRotas.post('/', controladorUf.inserir);
+ufsRotas.put('/', controladorUf.atualizar);
+ufsRotas.delete('/:codigoUF', controladorUf.deletar);
 
-export default ufsRoutes;
+export default ufsRotas;
