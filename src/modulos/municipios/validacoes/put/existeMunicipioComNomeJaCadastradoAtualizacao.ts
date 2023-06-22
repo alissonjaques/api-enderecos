@@ -7,12 +7,14 @@ async function existeMunicipioComNomeJaCadastradoAtualizacao(
   nome: string,
   nomeMunicipio: string,
 ): Promise<void> {
-  const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
-  const existeMunicipio = await repositorioMunicipio.encontrarPorNome(nome);
-  if (existeMunicipio && nome.toUpperCase() !== nomeMunicipio.toUpperCase()) {
-    throw new AppErros(
-      `Não foi possível atualizar o município de id = ${codigo_municipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado no sistema.`,
-    );
+  if (nome && nomeMunicipio) {
+    const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
+    const existeMunicipio = await repositorioMunicipio.encontrarPorNome(nome);
+    if (existeMunicipio && nome.toUpperCase() !== nomeMunicipio.toUpperCase()) {
+      throw new AppErros(
+        `Não foi possível atualizar o município de id = ${codigo_municipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado no sistema.`,
+      );
+    }
   }
 }
 
