@@ -1,7 +1,7 @@
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import validarValorDoStatus from '../geral/validarValorDoStatus';
 import existeMunicipioComNomeJaCadastradoNaUf from './existeMunicipioComNomeJaCadastradoNaUf';
-import existeUfMunicipio from './existeUfMunicipio';
+import existeUfMunicipio from '../geral/existeUfMunicipio';
 
 interface IRequest {
   codigo_uf: number;
