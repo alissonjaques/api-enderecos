@@ -4,10 +4,9 @@ import ControladorUf from '../controladores/ControladorUf';
 const ufsRoutes = Router();
 const controladorUf = new ControladorUf();
 
-ufsRoutes.get('/', controladorUf.index);
-ufsRoutes.get('/:codigoUF', controladorUf.show);
-ufsRoutes.post('/', controladorUf.create);
-ufsRoutes.put('/', controladorUf.update);
-ufsRoutes.delete('/:codigoUF', controladorUf.delete);
+ufsRoutes.get('/', controladorUf.consultaPersonalizadaUf);
+ufsRoutes.post('/', controladorUf.inserir);
+ufsRoutes.put('/', controladorUf.atualizar);
+ufsRoutes.delete('/:codigoUF', controladorUf.deletar);
 
 export default ufsRoutes;
