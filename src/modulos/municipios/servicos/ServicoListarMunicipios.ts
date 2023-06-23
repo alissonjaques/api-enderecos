@@ -36,7 +36,6 @@ class ServicoListarMunicipios {
     if (
       !params.codigoMunicipio &&
       !params.codigoUF &&
-      !params.sigla &&
       !params.nome &&
       params.status
     ) {

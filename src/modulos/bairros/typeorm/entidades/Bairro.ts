@@ -26,4 +26,4 @@ class Bairro {
   status: number;
 }
 
-export default Municipio;
+export default Bairro;
