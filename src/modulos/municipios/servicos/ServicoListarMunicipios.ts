@@ -9,11 +9,24 @@ class ServicoListarMunicipios {
     this.repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
   }
 
-  public async executa(): Promise<Municipio[]> {
-    const listaMucipios = this.repositorioMunicipio.find();
-    return (await listaMucipios).sort(
+  public async executa(): Promise<any[]> {
+    const listaMunicipios = await this.repositorioMunicipio.find({
+      select: ['codigo_municipio', 'codigo_uf', 'nome', 'status'],
+      relations: ['codigo_uf'],
+    });
+
+    const listaRetorno = listaMunicipios.map(municipio => {
+      return {
+        codigoMunicipio: municipio.codigo_municipio,
+        codigoUF: municipio.codigo_uf.codigo_uf,
+        nome: municipio.nome,
+        status: municipio.status,
+      };
+    });
+
+    return listaRetorno.sort(
       (municipioAtual, municipioProximo) =>
-        municipioProximo.codigo_municipio - municipioAtual.codigo_municipio,
+        municipioProximo.codigoMunicipio - municipioAtual.codigoMunicipio,
     );
   }
 

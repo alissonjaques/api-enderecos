@@ -8,15 +8,15 @@ function validarCamposObrigatorios(
 ): void {
   if (!codigo_uf) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} UF no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
+      `Não foi possível ${descricaoMetodo} município no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
     );
   } else if (!nome) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} UF no banco de dados.<br>Motivo: o campo nome é obrigatório`,
+      `Não foi possível ${descricaoMetodo} município no banco de dados.<br>Motivo: o campo nome é obrigatório`,
     );
   } else if (!status) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} UF no banco de dados.<br>Motivo: o campo status é obrigatório`,
+      `Não foi possível ${descricaoMetodo} município no banco de dados.<br>Motivo: o campo status é obrigatório`,
     );
   }
 }
