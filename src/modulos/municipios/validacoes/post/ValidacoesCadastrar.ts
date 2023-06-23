@@ -1,7 +1,7 @@
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
-import validarValorDoStatus from '../geral/validarValorDoStatus';
 import existeMunicipioComNomeJaCadastradoNaUf from './existeMunicipioComNomeJaCadastradoNaUf';
 import existeUfMunicipio from '../geral/existeUfMunicipio';
+import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
   codigo_uf: number;
@@ -13,7 +13,7 @@ class ValidacoesCadastrar {
   async validar({ codigo_uf, nome, status }: IRequest): Promise<void> {
     await existeMunicipioComNomeJaCadastradoNaUf(codigo_uf, nome);
     validarCamposObrigatorios(codigo_uf, nome, status, 'incluir');
-    validarValorDoStatus(status, 'incluir');
+    validarValorDoStatus(status, 'incluir o município');
     await existeUfMunicipio(codigo_uf, 'incluir');
   }
 }

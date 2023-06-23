@@ -1,8 +1,8 @@
 import existeMunicipioComNomeJaCadastradoAtualizacao from './existeMunicipioComNomeJaCadastradoAtualizacao';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
-import validarValorDoStatus from '../geral/validarValorDoStatus';
 import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
 import existeUfMunicipio from '../geral/existeUfMunicipio';
+import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
   codigo_municipio: number;
@@ -22,7 +22,7 @@ class ValidacoesAtualizar {
       municipio.nome,
     );
     validarCamposObrigatorios(codigo_uf, nome, status, 'atualizar');
-    validarValorDoStatus(status, 'atualizar');
+    validarValorDoStatus(status, 'atualizar o município');
     await existeUfMunicipio(codigo_uf, 'incluir');
   }
 }

@@ -1,8 +1,8 @@
 import existeBairroComNomeJaCadastradoAtualizacao from './existeBairroComNomeJaCadastradoAtualizacao';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
-import validarValorDoStatus from '../geral/validarValorDoStatus';
 import Bairro from '@modules/bairros/typeorm/entidades/Bairro';
 import existeMunicipioBairro from '../geral/existeMunicipioBairro';
+import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
   codigo_bairro: number;
@@ -22,7 +22,7 @@ class ValidacoesAtualizar {
       bairro.nome,
     );
     validarCamposObrigatorios(codigo_municipio, nome, status, 'atualizar');
-    validarValorDoStatus(status, 'atualizar');
+    validarValorDoStatus(status, 'atualizar o bairro');
     await existeMunicipioBairro(codigo_municipio, 'incluir');
   }
 }

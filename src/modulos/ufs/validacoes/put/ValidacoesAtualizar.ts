@@ -2,7 +2,7 @@ import existeUfComNomeJaCadastradoAtualizacao from '../put/existeUfComNomeJaCada
 import Uf from '@modules/ufs/typeorm/entidades/Uf';
 import existeUfComSiglaJaCadastradaAtualizacao from './existeUfComSiglaJaCadastradaAtualizacao';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
-import validarValorDoStatus from '../geral/validarValorDoStatus';
+import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
   codigo_uf: number;
@@ -19,7 +19,7 @@ class ValidacoesAtualizar {
     await existeUfComSiglaJaCadastradaAtualizacao(codigo_uf, sigla, uf.sigla);
     await existeUfComNomeJaCadastradoAtualizacao(codigo_uf, nome, uf.nome);
     validarCamposObrigatorios(sigla, nome, status, 'atualizar');
-    validarValorDoStatus(status, 'atualizar');
+    validarValorDoStatus(status, 'atualizar a UF');
   }
 }
 
