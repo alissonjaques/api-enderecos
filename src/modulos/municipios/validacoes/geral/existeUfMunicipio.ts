@@ -6,7 +6,7 @@ import { getCustomRepository } from 'typeorm';
 async function existeUfMunicipio(
   codigo_uf: number,
   descricaoMetodo: string,
-): Promise<Uf> {
+): Promise<void> {
   const repositorioUf = getCustomRepository(RepositorioUf);
   const uf = await repositorioUf.findOne(codigo_uf);
 
@@ -16,7 +16,6 @@ async function existeUfMunicipio(
       404,
     );
   }
-  return uf;
 }
 
 export default existeUfMunicipio;

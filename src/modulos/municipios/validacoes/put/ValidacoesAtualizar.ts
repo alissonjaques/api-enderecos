@@ -1,4 +1,4 @@
-import existeUfComNomeJaCadastradoAtualizacao from './existeMunicipioComNomeJaCadastradoAtualizacao';
+import existeMunicipioComNomeJaCadastradoAtualizacao from './existeMunicipioComNomeJaCadastradoAtualizacao';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import validarValorDoStatus from '../geral/validarValorDoStatus';
 import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
@@ -16,7 +16,7 @@ class ValidacoesAtualizar {
     { codigo_municipio, codigo_uf, nome, status }: IRequest,
     municipio: Municipio,
   ): Promise<void> {
-    await existeUfComNomeJaCadastradoAtualizacao(
+    await existeMunicipioComNomeJaCadastradoAtualizacao(
       codigo_municipio,
       nome,
       municipio.nome,
