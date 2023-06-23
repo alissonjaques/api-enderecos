@@ -3,6 +3,7 @@ import Bairro from '../typeorm/entidades/Bairro';
 import ServicoListarBairros from './ServicoListarBairros';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 import { RepositorioBairro } from '../typeorm/repositorios/RepositorioBairro';
+import gerarSequence from '@compartilhado/util/gerarSequence';
 
 interface IRequest {
   codigo_municipio: number;
@@ -21,7 +22,7 @@ class ServicoCriarBairro {
     const validacoes = new ValidacoesCadastrar();
     await validacoes.validar({ codigo_municipio, nome, status });
 
-    const codigo_bairro = await getSequence();
+    const codigo_bairro = await gerarSequence('sequence_bairro');
     const bairro = repositorioBairro.create({
       codigo_bairro,
       codigo_municipio: { codigo_municipio: codigo_municipio },
@@ -34,14 +35,6 @@ class ServicoCriarBairro {
     const servicoListarBairros = new ServicoListarBairros();
     return await servicoListarBairros.executa();
   }
-}
-
-async function getSequence(): Promise<number> {
-  const entityManager = getManager();
-  const consulta = 'SELECT SEQUENCE_BAIRRO.NEXTVAL as CODIGO FROM DUAL';
-  const resultado = await entityManager.query(consulta);
-  const proximoValor = resultado[0].CODIGO;
-  return proximoValor;
 }
 
 export default ServicoCriarBairro;

@@ -3,6 +3,7 @@ import Municipio from '../typeorm/entidades/Municipio';
 import ServicoListarMunicipios from './ServicoListarMunicipios';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 import { RepositorioMunicipio } from '../typeorm/repositorios/RepositorioMunicipio';
+import gerarSequence from '@compartilhado/util/gerarSequence';
 
 interface IRequest {
   codigo_uf: number;
@@ -17,9 +18,11 @@ class ServicoCriarMunicipio {
     status,
   }: IRequest): Promise<Municipio[]> {
     const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
+
     const validacoes = new ValidacoesCadastrar();
     await validacoes.validar({ codigo_uf, nome, status });
-    const codigo_municipio = await getSequence();
+
+    const codigo_municipio = await gerarSequence('sequence_municipio');
     const municipio = repositorioMunicipio.create({
       codigo_municipio,
       codigo_uf: { codigo_uf: codigo_uf },
@@ -32,14 +35,6 @@ class ServicoCriarMunicipio {
     const servicoListarMunicipios = new ServicoListarMunicipios();
     return await servicoListarMunicipios.executa();
   }
-}
-
-async function getSequence(): Promise<number> {
-  const entityManager = getManager();
-  const consulta = 'SELECT SEQUENCE_MUNICIPIO.NEXTVAL as CODIGO FROM DUAL';
-  const resultado = await entityManager.query(consulta);
-  const proximoValor = resultado[0].CODIGO;
-  return proximoValor;
 }
 
 export default ServicoCriarMunicipio;
