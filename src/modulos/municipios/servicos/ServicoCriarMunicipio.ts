@@ -1,4 +1,4 @@
-import { getCustomRepository, getManager } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import Municipio from '../typeorm/entidades/Municipio';
 import ServicoListarMunicipios from './ServicoListarMunicipios';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';

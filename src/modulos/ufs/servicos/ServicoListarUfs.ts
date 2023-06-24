@@ -20,7 +20,7 @@ class ServicoListarUfs {
     let query = this.repositorioUf.createQueryBuilder('tb_uf');
 
     if (!params.codigoUF && !params.sigla && !params.nome && params.status) {
-      query = query.andWhere('tb_uf.status = :status', {
+      query = query.where('tb_uf.status = :status', {
         status: params.status,
       });
       return (await query.getMany()).sort(

@@ -26,6 +26,17 @@ export default class ControladorMunicipio {
       ) {
         return response.json(listaMunicipios);
       }
+
+      if (
+        !request.query.codigoMunicipio &&
+        request.query.codigoUF &&
+        !request.query.sigla &&
+        !request.query.nome &&
+        !request.query.status
+      ) {
+        return response.json(listaMunicipios);
+      }
+
       return response.json(listaMunicipios[0] ?? []);
     }
     const listaMunicipios = await servicoListarMunicipios.executa();
