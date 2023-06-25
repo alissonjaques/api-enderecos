@@ -1,60 +1,70 @@
-import { getCustomRepository } from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import Uf from '../typeorm/entidades/Uf';
-import { RepositorioUf } from '../typeorm/repositorios/RepositorioUf';
 
 class ServicoListarUfs {
-  private readonly repositorioUf: RepositorioUf;
+  private readonly entityManager: EntityManager;
+  private consulta: string;
 
   constructor() {
-    this.repositorioUf = getCustomRepository(RepositorioUf);
+    this.entityManager = getManager();
+    this.consulta = '';
   }
 
   public async executa(): Promise<Uf[]> {
-    const ufs = this.repositorioUf.find();
-    return (await ufs).sort(
-      (atualUf, proximoUf) => proximoUf.codigo_uf - atualUf.codigo_uf,
-    );
+    this.consulta = `SELECT CODIGO_UF AS "codigoUF",
+                     SIGLA AS "sigla",
+                     NOME AS "nome",
+                     STATUS as "status"
+                     FROM TB_UF
+                     ORDER BY CODIGO_UF DESC`;
+
+    const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+    return resultadoConsulta;
   }
 
   public async executaConsultaPersonalizada(params: any): Promise<Uf[]> {
-    let query = this.repositorioUf.createQueryBuilder('tb_uf');
+    this.consulta = `SELECT CODIGO_UF AS "codigoUF",
+                     SIGLA AS "sigla",
+                     NOME AS "nome",
+                     STATUS as "status"
+                     FROM TB_UF WHERE `;
 
     if (!params.codigoUF && !params.sigla && !params.nome && params.status) {
-      query = query.where('tb_uf.status = :status', {
-        status: params.status,
-      });
-      return (await query.getMany()).sort(
-        (atualUf, proximoUf) => proximoUf.codigo_uf - atualUf.codigo_uf,
-      );
+      this.consulta += `TB_UF.STATUS = ${params.status}
+                        ORDER BY CODIGO_UF DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+      return resultadoConsulta;
     }
 
     if (params.codigoUF) {
-      query = query.where('tb_uf.codigo_uf = :codigoUF', {
-        codigoUF: params.codigoUF,
-      });
+      this.consulta += `TB_UF.CODIGO_UF = ${params.codigoUF} `;
     }
 
     if (params.sigla) {
-      query = query.andWhere('UPPER(tb_uf.sigla) = :sigla', {
-        sigla: params.sigla.toUpperCase(),
-      });
+      params.codigoUF
+        ? (this.consulta += `AND UPPER(TB_UF.SIGLA) = '${params.sigla.toUpperCase()}' `)
+        : (this.consulta += `UPPER(TB_UF.SIGLA) = '${params.sigla.toUpperCase()}' `);
     }
 
     if (params.nome) {
-      query = query.andWhere('UPPER(tb_uf.nome) = :nome', {
-        nome: params.nome.toUpperCase(),
-      });
+      params.codigoUF || params.sigla
+        ? (this.consulta += `AND UPPER(TB_UF.NOME) = '${params.nome.toUpperCase()}' `)
+        : (this.consulta += `UPPER(TB_UF.NOME) = '${params.nome.toUpperCase()}' `);
     }
 
     if (params.status) {
-      query = query.andWhere('tb_uf.status = :status', {
-        status: params.status,
-      });
+      params.nome || params.sigla || params.codigoUF
+        ? (this.consulta += `AND TB_UF.STATUS = ${params.status} `)
+        : (this.consulta += `TB_UF.STATUS = ${params.status} `);
     }
 
-    return (await query.getMany()).sort(
-      (atualUf, proximoUf) => proximoUf.codigo_uf - atualUf.codigo_uf,
-    );
+    this.consulta += 'ORDER BY TB_UF.CODIGO_UF DESC';
+    const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+    return resultadoConsulta;
   }
 }
 

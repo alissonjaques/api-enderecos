@@ -14,7 +14,7 @@ async function existeMunicipioComNomeJaCadastradoNaUf(
     );
     if (existeMunicipio) {
       throw new AppErros(
-        `Não foi possível inserir município.<br>Já existe um município com nome = ${nome} cadastrado no sistema.`,
+        `Não foi possível inserir município.<br>Já existe um município com nome = ${nome} cadastrado para o estado de codigoUf = ${codigo_uf}.`,
       );
     }
   }

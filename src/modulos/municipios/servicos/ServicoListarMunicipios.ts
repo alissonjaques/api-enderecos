@@ -1,37 +1,59 @@
-import { getCustomRepository, getManager } from 'typeorm';
-import { RepositorioMunicipio } from '../typeorm/repositorios/RepositorioMunicipio';
+import { EntityManager, getManager } from 'typeorm';
+import Municipio from '../typeorm/entidades/Municipio';
 
 class ServicoListarMunicipios {
-  private readonly repositorioMunicipio: RepositorioMunicipio;
+  private readonly entityManager: EntityManager;
+  private consulta: string;
 
   constructor() {
-    this.repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
+    this.entityManager = getManager();
+    this.consulta = '';
   }
 
-  public async executa(): Promise<any[]> {
-    const listaMunicipios = await this.repositorioMunicipio.find({
-      select: ['codigo_municipio', 'codigo_uf', 'nome', 'status'],
-      relations: ['codigo_uf'],
-      order: {
-        codigo_municipio: 'DESC',
-      },
-    });
+  public async executa(): Promise<Municipio[]> {
+    this.consulta = `SELECT CODIGO_MUNICIPIO AS "codigoMunicipio",
+                     CODIGO_UF AS "codigoUF",
+                     NOME AS "nome",
+                     STATUS as "status"
+                     FROM TB_MUNICIPIO
+                     ORDER BY CODIGO_MUNICIPIO DESC`;
 
-    const listaDeRetorno = listaMunicipios.map(municipio => {
-      return {
-        codigoMunicipio: municipio.codigo_municipio,
-        codigoUF: municipio.codigo_uf.codigo_uf,
-        nome: municipio.nome,
-        status: municipio.status,
-      };
-    });
+    const resultadoConsulta = await this.entityManager.query(this.consulta);
 
-    return listaDeRetorno;
+    return resultadoConsulta;
   }
 
-  public async executaConsultaPersonalizada(params: any): Promise<any[]> {
-    const entityManager = getManager();
-    let query = '';
+  public async executaConsultaPersonalizada(params: any): Promise<Municipio[]> {
+    this.consulta = `SELECT CODIGO_MUNICIPIO AS "codigoMunicipio",
+                     CODIGO_UF AS "codigoUF",
+                     NOME AS "nome",
+                     STATUS as "status"
+                     FROM TB_MUNICIPIO WHERE `;
+    if (
+      !params.codigoMunicipio &&
+      params.codigoUF &&
+      !params.nome &&
+      !params.status
+    ) {
+      this.consulta += `CODIGO_UF = ${params.codigoUF}
+                        ORDER BY CODIGO_MUNICIPIO DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+      return resultadoConsulta;
+    }
+
+    if (
+      !params.codigoMunicipio &&
+      !params.codigoUF &&
+      params.nome &&
+      !params.status
+    ) {
+      this.consulta += `UPPER(TB_MUNICIPIO.NOME) = '${params.nome.toUpperCase()}'
+                        ORDER BY CODIGO_MUNICIPIO DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+      return resultadoConsulta;
+    }
 
     if (
       !params.codigoMunicipio &&
@@ -39,64 +61,37 @@ class ServicoListarMunicipios {
       !params.nome &&
       params.status
     ) {
-      query = `SELECT CODIGO_MUNICIPIO AS "codigoMunicipio",
-                 CODIGO_UF AS "codigoUF",
-                 NOME AS "nome",
-                 STATUS as "status"
-                 FROM TB_MUNICIPIO WHERE STATUS = ${params.status}
-                 ORDER BY CODIGO_MUNICIPIO DESC`;
+      this.consulta += `STATUS = ${params.status}
+                        ORDER BY CODIGO_MUNICIPIO DESC`;
 
-      const resultadoConsulta = await entityManager.query(query);
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
       return resultadoConsulta;
     }
-
-    if (
-      !params.codigoMunicipio &&
-      params.codigoUF &&
-      !params.nome &&
-      !params.status
-    ) {
-      query = `SELECT CODIGO_MUNICIPIO AS "codigoMunicipio",
-                 CODIGO_UF AS "codigoUF",
-                 NOME AS "nome",
-                 STATUS as "status"
-                 FROM TB_MUNICIPIO WHERE CODIGO_UF = ${params.codigoUF}
-                 ORDER BY CODIGO_MUNICIPIO DESC`;
-
-      const resultadoConsulta = await entityManager.query(query);
-      return resultadoConsulta;
-    }
-
-    query = `SELECT CODIGO_MUNICIPIO AS "codigoMunicipio",
-                 CODIGO_UF AS "codigoUF",
-                 NOME AS "nome",
-                 STATUS as "status"
-                 FROM TB_MUNICIPIO WHERE `;
 
     if (params.codigoMunicipio) {
-      query += `TB_MUNICIPIO.CODIGO_MUNICIPIO = ${params.codigoMunicipio} `;
+      this.consulta += `TB_MUNICIPIO.CODIGO_MUNICIPIO = ${params.codigoMunicipio} `;
     }
 
     if (params.codigoUF) {
       params.codigoMunicipio
-        ? (query += `AND TB_MUNICIPIO.CODIGO_UF = ${params.codigoUF} `)
-        : (query += `TB_MUNICIPIO.CODIGO_UF = ${params.codigoUF} `);
+        ? (this.consulta += `AND TB_MUNICIPIO.CODIGO_UF = ${params.codigoUF} `)
+        : (this.consulta += `TB_MUNICIPIO.CODIGO_UF = ${params.codigoUF} `);
     }
 
     if (params.nome) {
       params.codigoUF || params.codigoMunicipio
-        ? (query += `AND TB_MUNICIPIO.NOME = '${params.nome}' `)
-        : (query += `TB_MUNICIPIO.NOME = '${params.nome}' `);
+        ? (this.consulta += `AND UPPER(TB_MUNICIPIO.NOME) = '${params.nome.toUpperCase()}' `)
+        : (this.consulta += `UPPER(TB_MUNICIPIO.NOME) = '${params.nome.toUpperCase()}' `);
     }
 
     if (params.status) {
       params.nome || params.codigoUF || params.codigoMunicipio
-        ? (query += `AND TB_MUNICIPIO.STATUS = ${params.status}`)
-        : (query += `TB_MUNICIPIO.STATUS = ${params.status}`);
+        ? (this.consulta += `AND TB_MUNICIPIO.STATUS = ${params.status} `)
+        : (this.consulta += `TB_MUNICIPIO.STATUS = ${params.status} `);
     }
 
-    query += 'ORDER BY TB_MUNICIPIO.CODIGO_MUNICIPIO DESC';
-    const resultadoConsulta = await entityManager.query(query);
+    this.consulta += 'ORDER BY TB_MUNICIPIO.CODIGO_MUNICIPIO DESC';
+    const resultadoConsulta = await this.entityManager.query(this.consulta);
 
     return resultadoConsulta;
   }
