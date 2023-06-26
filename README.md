@@ -2,7 +2,8 @@
 
 Este projeto consiste em uma API Rest escrita para gerenciar cadastro de endereços para pessoas.
 
-|    |   |
+| :placard: Vitrine.Dev |     |
+| -------------  | --- |
 | :sparkles: Nome        | **API Rest de Endereços**
 | :label: Tecnologias | typescript, typeORM, oracle, nodeJS
 
