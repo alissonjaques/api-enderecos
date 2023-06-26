@@ -12,7 +12,7 @@ async function existeMunicipioComNomeJaCadastradoAtualizacao(
     const existeMunicipio = await repositorioMunicipio.encontrarPorNome(nome);
     if (existeMunicipio && nome.toUpperCase() !== nomeMunicipio.toUpperCase()) {
       throw new AppErros(
-        `Não foi possível atualizar o município de id = ${codigo_municipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado no sistema.`,
+        `Não foi possível atualizar o município de codigoMunicipio = ${codigo_municipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado no sistema.`,
       );
     }
   }
