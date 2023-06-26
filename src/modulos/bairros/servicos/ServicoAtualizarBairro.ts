@@ -29,6 +29,12 @@ class ServicoAtualizarBairro {
       );
     }
 
+    if (!codigo_municipio) {
+      throw new AppErros(
+        `Não foi possível atualizar o bairro no banco de dados.<br>Motivo: o campo codigoMunicipio é obrigatório`,
+      );
+    }
+
     const bairro = await existeBairro(
       codigo_bairro,
       repositorioBairro,

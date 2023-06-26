@@ -4,15 +4,19 @@ import AppErros from '@compartilhado/erros/AppErros';
 
 async function existeBairroComNomeJaCadastradoAtualizacao(
   codigo_bairro: number,
+  codigo_municipio: number,
   nome: string,
   nomeBairro: string,
 ): Promise<void> {
   if (nome && nomeBairro) {
     const repositorioBairro = getCustomRepository(RepositorioBairro);
-    const existeBairro = await repositorioBairro.encontrarPorNome(nome);
+    const existeBairro = await repositorioBairro.encontrarPorNomeEMunicipio(
+      codigo_municipio,
+      nome,
+    );
     if (existeBairro && nome.toUpperCase() !== nomeBairro.toUpperCase()) {
       throw new AppErros(
-        `Não foi possível atualizar o bairro de id = ${codigo_bairro}.<br>Motivo: já existe um bairro com o nome = ${nome} cadastrado no sistema.`,
+        `Não foi possível atualizar o bairro de id = ${codigo_bairro}.<br>Motivo: já existe um bairro com o nome = ${nome} cadastrado no mesmo município.`,
       );
     }
   }

@@ -15,15 +15,11 @@ export default class ControladorBairro {
       const listaBairros =
         await servicoListarBairros.executaConsultaPersonalizada(request.query);
 
-      if (
-        !request.query.codigoBairro &&
-        !request.query.codigoMunicipio &&
-        !request.query.nome &&
-        request.query.status
-      ) {
-        return response.json(listaBairros);
+      if (request.query.codigoBairro) {
+        return response.json(listaBairros[0] ?? []);
       }
-      return response.json(listaBairros[0] ?? []);
+
+      return response.json(listaBairros);
     }
 
     const listaBairros = await servicoListarBairros.executa();

@@ -1,82 +1,99 @@
-import { getCustomRepository } from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import Bairro from '../typeorm/entidades/Bairro';
-import { RepositorioBairro } from '../typeorm/repositorios/RepositorioBairro';
 
 class ServicoListarBairros {
-  private readonly repositorioBairro: RepositorioBairro;
+  private readonly entityManager: EntityManager;
+  private consulta: string;
 
   constructor() {
-    this.repositorioBairro = getCustomRepository(RepositorioBairro);
+    this.entityManager = getManager();
+    this.consulta = '';
   }
 
-  public async executa(): Promise<any[]> {
-    const listaBairros = await this.repositorioBairro.find({
-      select: ['codigo_bairro', 'codigo_municipio', 'nome', 'status'],
-      relations: ['codigo_municipio'],
-    });
+  public async executa(): Promise<Bairro[]> {
+    this.consulta = `SELECT CODIGO_BAIRRO AS "codigoBairro",
+                     CODIGO_MUNICIPIO AS "codigoMunicipio",
+                     NOME AS "nome",
+                     STATUS as "status"
+                     FROM TB_BAIRRO
+                     ORDER BY CODIGO_BAIRRO DESC`;
 
-    const listaRetorno = listaBairros.map(bairro => {
-      return {
-        codigoBairro: bairro.codigo_bairro,
-        codigoMunicipio: bairro.codigo_municipio,
-        nome: bairro.nome,
-        status: bairro.status,
-      };
-    });
+    const resultadoConsulta = await this.entityManager.query(this.consulta);
 
-    return listaRetorno.sort(
-      (bairroAtual, bairroProximo) =>
-        bairroProximo.codigoBairro - bairroAtual.codigoBairro,
-    );
+    return resultadoConsulta;
   }
 
   public async executaConsultaPersonalizada(params: any): Promise<Bairro[]> {
-    let query = this.repositorioBairro.createQueryBuilder('tb_bairro');
+    this.consulta = `SELECT CODIGO_BAIRRO AS "codigoBairro",
+                     CODIGO_MUNICIPIO AS "codigoMunicipio",
+                     NOME AS "nome",
+                     STATUS as "status"
+                     FROM TB_BAIRRO WHERE `;
+    if (
+      !params.codigoBairro &&
+      params.codigoMunicipio &&
+      !params.nome &&
+      !params.status
+    ) {
+      this.consulta += `CODIGO_MUNICIPIO = ${params.codigoMunicipio}
+                        ORDER BY CODIGO_BAIRRO DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+      return resultadoConsulta;
+    }
 
     if (
       !params.codigoBairro &&
       !params.codigoMunicipio &&
+      params.nome &&
+      !params.status
+    ) {
+      this.consulta += `UPPER(TB_BAIRRO.NOME) = '${params.nome.toUpperCase()}'
+                        ORDER BY CODIGO_BAIRRO DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+      return resultadoConsulta;
+    }
+
+    if (
+      !params.codigoMunicipio &&
+      !params.codigoUF &&
       !params.nome &&
       params.status
     ) {
-      query = query.andWhere('tb_bairro.status = :status', {
-        status: params.status,
-      });
+      this.consulta += `STATUS = ${params.status}
+                        ORDER BY CODIGO_BAIRRO DESC`;
 
-      return (await query.getMany()).sort(
-        (bairroAtual, bairroProximo) =>
-          bairroProximo.codigo_bairro - bairroAtual.codigo_bairro,
-      );
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+      return resultadoConsulta;
     }
 
     if (params.codigoBairro) {
-      query = query.where('tb_bairro.codigo_bairro = :codigoBairro', {
-        codigoBairro: params.codigoBairro,
-      });
+      this.consulta += `TB_BAIRRO.CODIGO_BAIRRO = ${params.codigoBairro} `;
     }
 
     if (params.codigoMunicipio) {
-      query = query.where('tb_bairro.codigo_municipio = :codigoMunicipio', {
-        codigoMunicipio: params.codigoMunicipio,
-      });
+      params.codigoBairro
+        ? (this.consulta += `AND TB_BAIRRO.CODIGO_MUNICIPIO = ${params.codigoMunicipio} `)
+        : (this.consulta += `TB_BAIRRO.CODIGO_MUNICIPIO = ${params.codigoMunicipio} `);
     }
 
     if (params.nome) {
-      query = query.andWhere('UPPER(tb_bairro.nome) = :nome', {
-        nome: params.nome.toUpperCase(),
-      });
+      params.codigoMunicipio || params.codigoBairro
+        ? (this.consulta += `AND UPPER(TB_BAIRRO.NOME) = '${params.nome.toUpperCase()}' `)
+        : (this.consulta += `UPPER(TB_BAIRRO.NOME) = '${params.nome.toUpperCase()}' `);
     }
 
     if (params.status) {
-      query = query.andWhere('tb_bairro.status = :status', {
-        status: params.status,
-      });
+      params.nome || params.codigoMunicipio || params.codigoBairro
+        ? (this.consulta += `AND TB_BAIRRO.STATUS = ${params.status} `)
+        : (this.consulta += `TB_BAIRRO.STATUS = ${params.status} `);
     }
 
-    return (await query.getMany()).sort(
-      (bairroAtual, bairroProximo) =>
-        bairroProximo.codigo_bairro - bairroAtual.codigo_bairro,
-    );
+    this.consulta += 'ORDER BY TB_BAIRRO.CODIGO_BAIRRO DESC';
+    const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+    return resultadoConsulta;
   }
 }
 

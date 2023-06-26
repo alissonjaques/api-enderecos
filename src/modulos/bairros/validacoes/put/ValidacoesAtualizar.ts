@@ -18,6 +18,7 @@ class ValidacoesAtualizar {
   ): Promise<void> {
     await existeBairroComNomeJaCadastradoAtualizacao(
       codigo_bairro,
+      codigo_municipio,
       nome,
       bairro.nome,
     );
