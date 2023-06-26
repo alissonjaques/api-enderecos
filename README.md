@@ -7,7 +7,4 @@ Este projeto consiste em uma API Rest escrita para gerenciar cadastro de endere√
 | :sparkles: Nome        | **API Rest de Endere√ßos**
 | :label: Tecnologias | typescript, typeORM, oracle, nodeJS
 
-<!-- Inserir imagem com a #vitrinedev ao final do link -->
-![](https://via.placeholder.com/1200x500.png?text=imagem+lindona+do+meu+projeto#vitrinedev)
-
 ## Detalhes do projeto
