@@ -1,5 +1,4 @@
 import AppErros from '@compartilhado/erros/AppErros';
-import Uf from '@modules/ufs/typeorm/entidades/Uf';
 import { RepositorioUf } from '@modules/ufs/typeorm/repositorios/RepositorioUf';
 import { getCustomRepository } from 'typeorm';
 

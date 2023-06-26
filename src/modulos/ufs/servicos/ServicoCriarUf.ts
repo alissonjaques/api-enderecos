@@ -1,4 +1,4 @@
-import { getCustomRepository, getManager } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import { RepositorioUf } from '../typeorm/repositorios/RepositorioUf';
 import Uf from '../typeorm/entidades/Uf';
 import ServicoListarUfs from './ServicoListarUfs';

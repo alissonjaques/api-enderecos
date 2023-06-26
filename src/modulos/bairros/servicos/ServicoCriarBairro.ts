@@ -1,4 +1,4 @@
-import { getCustomRepository, getManager } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
 import Bairro from '../typeorm/entidades/Bairro';
 import ServicoListarBairros from './ServicoListarBairros';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
