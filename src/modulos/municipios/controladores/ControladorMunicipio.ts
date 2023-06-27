@@ -43,7 +43,7 @@ export default class ControladorMunicipio {
     const codigo_uf = Number(codigoUF);
     const servicoCriarMunicipio = new ServicoCriarMunicipio();
     const municipio = await servicoCriarMunicipio.executa({
-      codigo_uf: codigo_uf,
+      codigoUF: codigo_uf,
       nome,
       status,
     });
@@ -61,8 +61,8 @@ export default class ControladorMunicipio {
 
     const servicoAtualizarMunicipio = new ServicoAtualizarMunicipio();
     const municipio = await servicoAtualizarMunicipio.executa({
-      codigo_municipio,
-      codigo_uf,
+      codigoMunicipio: codigo_municipio,
+      codigoUF: codigo_uf,
       nome,
       status,
     });
@@ -77,7 +77,9 @@ export default class ControladorMunicipio {
     const { codigoMunicipio } = request.params;
     const codigo_municipio = Number(codigoMunicipio);
     const servicoDeletarMunicipio = new ServicoDeletarMunicipio();
-    await servicoDeletarMunicipio.execute({ codigo_municipio });
+    await servicoDeletarMunicipio.execute({
+      codigoMunicipio: codigo_municipio,
+    });
 
     return response.json([]);
   }

@@ -5,25 +5,26 @@ import existeUfMunicipio from '../geral/existeUfMunicipio';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
-  codigo_municipio: number;
-  codigo_uf: number;
+  codigoMunicipio: number;
+  codigoUF: number;
   nome: string;
   status: number;
 }
 
 class ValidacoesAtualizar {
   async validar(
-    { codigo_municipio, codigo_uf, nome, status }: IRequest,
+    { codigoMunicipio, codigoUF, nome, status }: IRequest,
     municipio: Municipio,
   ): Promise<void> {
     await existeMunicipioComNomeJaCadastradoAtualizacao(
-      codigo_municipio,
+      codigoMunicipio,
+      codigoUF,
       nome,
       municipio.nome,
     );
-    validarCamposObrigatorios(codigo_uf, nome, status, 'atualizar');
+    validarCamposObrigatorios(codigoUF, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar o município');
-    await existeUfMunicipio(codigo_uf, 'incluir');
+    await existeUfMunicipio(codigoUF, 'incluir');
   }
 }
 

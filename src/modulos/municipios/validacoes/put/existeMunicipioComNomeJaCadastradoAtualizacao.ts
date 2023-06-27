@@ -3,16 +3,20 @@ import { RepositorioMunicipio } from '../../typeorm/repositorios/RepositorioMuni
 import AppErros from '@compartilhado/erros/AppErros';
 
 async function existeMunicipioComNomeJaCadastradoAtualizacao(
-  codigo_municipio: number,
+  codigoMunicipio: number,
+  codigoUF: number,
   nome: string,
   nomeMunicipio: string,
 ): Promise<void> {
   if (nome && nomeMunicipio) {
     const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
-    const existeMunicipio = await repositorioMunicipio.encontrarPorNome(nome);
+    const existeMunicipio = await repositorioMunicipio.encontrarPorNomeEUf(
+      codigoUF,
+      nome,
+    );
     if (existeMunicipio && nome.toUpperCase() !== nomeMunicipio.toUpperCase()) {
       throw new AppErros(
-        `Não foi possível atualizar o município de codigoMunicipio = ${codigo_municipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado no sistema.`,
+        `Não foi possível atualizar o município de codigoMunicipio = ${codigoMunicipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado para a UF com codigoUF = ${codigoUF}.`,
       );
     }
   }

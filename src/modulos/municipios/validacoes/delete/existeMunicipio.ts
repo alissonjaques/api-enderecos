@@ -3,15 +3,15 @@ import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
 import { RepositorioMunicipio } from '@modules/municipios/typeorm/repositorios/RepositorioMunicipio';
 
 async function existeMunicipio(
-  codigo_municipio: number,
+  codigoMunicipio: number,
   repositorioMunicipio: RepositorioMunicipio,
   descricaoMetodo: string,
 ): Promise<Municipio> {
-  const municipio = await repositorioMunicipio.findOne(codigo_municipio);
+  const municipio = await repositorioMunicipio.findOne(codigoMunicipio);
 
   if (!municipio) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o município com codigoMunicipio = ${codigo_municipio}.<br>Motivo: município não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o município com codigoMunicipio = ${codigoMunicipio}.<br>Motivo: município não encontrado.`,
       404,
     );
   }

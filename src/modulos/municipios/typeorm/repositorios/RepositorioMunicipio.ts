@@ -18,7 +18,7 @@ export class RepositorioMunicipio extends Repository<Municipio> {
   }
 
   public async encontrarPorNomeEUf(
-    codigo_uf: number,
+    codigoUF: number,
     nome: string,
   ): Promise<Municipio> {
     let construtorDeConsultas = this.createQueryBuilder('tb_municipio');
@@ -31,9 +31,9 @@ export class RepositorioMunicipio extends Repository<Municipio> {
     );
 
     construtorDeConsultas = construtorDeConsultas.andWhere(
-      'UPPER(tb_municipio.codigo_uf) = :codigo_uf',
+      'UPPER(tb_municipio.uf.codigoUF) = :codigo_uf',
       {
-        codigo_uf: codigo_uf,
+        codigo_uf: codigoUF,
       },
     );
 

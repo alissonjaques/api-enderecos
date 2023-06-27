@@ -6,26 +6,26 @@ import { RepositorioMunicipio } from '../typeorm/repositorios/RepositorioMunicip
 import gerarSequence from '@compartilhado/util/gerarSequence';
 
 interface IRequest {
-  codigo_uf: number;
+  codigoUF: number;
   nome: string;
   status: number;
 }
 
 class ServicoCriarMunicipio {
   public async executa({
-    codigo_uf,
+    codigoUF,
     nome,
     status,
   }: IRequest): Promise<Municipio[]> {
     const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
 
     const validacoes = new ValidacoesCadastrar();
-    await validacoes.validar({ codigo_uf, nome, status });
+    await validacoes.validar({ codigoUF, nome, status });
 
-    const codigo_municipio = await gerarSequence('sequence_municipio');
+    const codigoMunicipio = await gerarSequence('sequence_municipio');
     const municipio = repositorioMunicipio.create({
-      codigo_municipio,
-      codigo_uf: { codigo_uf: codigo_uf },
+      codigoMunicipio,
+      uf: { codigoUF: codigoUF },
       nome,
       status,
     });

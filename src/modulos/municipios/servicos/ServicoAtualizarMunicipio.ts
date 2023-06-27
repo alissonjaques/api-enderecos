@@ -8,43 +8,43 @@ import AppErros from '@compartilhado/erros/AppErros';
 import Uf from '@modules/ufs/typeorm/entidades/Uf';
 
 interface IRequest {
-  codigo_municipio: number;
-  codigo_uf: number;
+  codigoMunicipio: number;
+  codigoUF: number;
   nome: string;
   status: number;
 }
 
 class ServicoAtualizarMunicipio {
   public async executa({
-    codigo_municipio,
-    codigo_uf,
+    codigoMunicipio,
+    codigoUF,
     nome,
     status,
   }: IRequest): Promise<Municipio[]> {
     const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
 
-    if (!codigo_municipio) {
+    if (!codigoMunicipio) {
       throw new AppErros(
         `Não foi possível atualizar o município no banco de dados.<br>Motivo: o campo codigoMunicipio é obrigatório`,
       );
     }
 
     const municipio = await existeMunicipio(
-      codigo_municipio,
+      codigoMunicipio,
       repositorioMunicipio,
       'atualizar',
     );
 
     const validacoes = new ValidacoesAtualizar();
     await validacoes.validar(
-      { codigo_municipio, codigo_uf, nome, status },
+      { codigoMunicipio, codigoUF, nome, status },
       municipio,
     );
 
     const uf = new Uf();
-    uf.codigo_uf = codigo_uf;
+    uf.codigoUF = codigoUF;
 
-    municipio.codigo_uf = uf;
+    municipio.uf = uf;
     municipio.nome = nome;
     municipio.status = status;
 

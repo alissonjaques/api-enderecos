@@ -7,11 +7,11 @@ class Municipio {
     name: 'CODIGO_MUNICIPIO',
     type: 'number',
   })
-  codigo_municipio: number;
+  codigoMunicipio: number;
 
   @ManyToOne(() => Uf)
   @JoinColumn({ name: 'CODIGO_UF' })
-  codigo_uf: Uf;
+  uf: Uf;
 
   @Column({
     name: 'NOME',

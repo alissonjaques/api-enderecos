@@ -3,18 +3,18 @@ import { RepositorioMunicipio } from '../../typeorm/repositorios/RepositorioMuni
 import AppErros from '@compartilhado/erros/AppErros';
 
 async function existeMunicipioComNomeJaCadastradoNaUf(
-  codigo_uf: number,
+  codigoUF: number,
   nome: string,
 ): Promise<void> {
-  if (nome && codigo_uf) {
+  if (nome && codigoUF) {
     const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
     const existeMunicipio = await repositorioMunicipio.encontrarPorNomeEUf(
-      codigo_uf,
+      codigoUF,
       nome,
     );
     if (existeMunicipio) {
       throw new AppErros(
-        `Não foi possível inserir município.<br>Já existe um município com nome = ${nome} cadastrado para o estado de codigoUf = ${codigo_uf}.`,
+        `Não foi possível inserir município.<br>Já existe um município com nome = ${nome} cadastrado para o estado de codigoUF = ${codigoUF}.`,
       );
     }
   }
