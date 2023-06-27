@@ -8,49 +8,49 @@ import AppErros from '@compartilhado/erros/AppErros';
 import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
 
 interface IRequest {
-  codigo_bairro: number;
-  codigo_municipio: number;
+  codigoBairro: number;
+  codigoMunicipio: number;
   nome: string;
   status: number;
 }
 
 class ServicoAtualizarBairro {
   public async executa({
-    codigo_bairro,
-    codigo_municipio,
+    codigoBairro,
+    codigoMunicipio,
     nome,
     status,
   }: IRequest): Promise<Bairro[]> {
     const repositorioBairro = getCustomRepository(RepositorioBairro);
 
-    if (!codigo_bairro) {
+    if (!codigoBairro) {
       throw new AppErros(
         `Não foi possível atualizar o bairro no banco de dados.<br>Motivo: o campo codigoBairro é obrigatório`,
       );
     }
 
-    if (!codigo_municipio) {
+    if (!codigoMunicipio) {
       throw new AppErros(
         `Não foi possível atualizar o bairro no banco de dados.<br>Motivo: o campo codigoMunicipio é obrigatório`,
       );
     }
 
     const bairro = await existeBairro(
-      codigo_bairro,
+      codigoBairro,
       repositorioBairro,
       'atualizar',
     );
 
     const validacoes = new ValidacoesAtualizar();
     await validacoes.validar(
-      { codigo_bairro, codigo_municipio, nome, status },
+      { codigoBairro, codigoMunicipio, nome, status },
       bairro,
     );
 
     const municipio = new Municipio();
-    municipio.codigo_municipio = codigo_municipio;
+    municipio.codigoMunicipio = codigoMunicipio;
 
-    bairro.codigo_municipio = municipio;
+    bairro.municipio = municipio;
     bairro.nome = nome;
     bairro.status = status;
 

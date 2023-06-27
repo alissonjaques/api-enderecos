@@ -1,12 +1,12 @@
 import AppErros from '@compartilhado/erros/AppErros';
 
 function validarCamposObrigatorios(
-  codigo_municipio: number,
+  codigoMunicipio: number,
   nome: string,
   status: number,
   descricaoMetodo: string,
 ): void {
-  if (!codigo_municipio) {
+  if (!codigoMunicipio) {
     throw new AppErros(
       `Não foi possível ${descricaoMetodo} bairro no banco de dados.<br>Motivo: o campo codigoMunicipio é obrigatório`,
     );

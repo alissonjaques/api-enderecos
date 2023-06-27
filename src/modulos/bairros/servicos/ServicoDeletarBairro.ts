@@ -3,15 +3,15 @@ import { RepositorioBairro } from '../typeorm/repositorios/RepositorioBairro';
 import existeBairro from '../validacoes/delete/existeBairro';
 
 interface IRequest {
-  codigo_bairro: number;
+  codigoBairro: number;
 }
 
 class ServicoDeletarBairro {
-  public async execute({ codigo_bairro }: IRequest): Promise<void> {
+  public async execute({ codigoBairro }: IRequest): Promise<void> {
     const repositorioBairro = getCustomRepository(RepositorioBairro);
 
     const bairro = await existeBairro(
-      codigo_bairro,
+      codigoBairro,
       repositorioBairro,
       'deletar',
     );

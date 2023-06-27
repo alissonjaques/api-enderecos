@@ -4,17 +4,17 @@ import existeMunicipioBairro from '../geral/existeMunicipioBairro';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
-  codigo_municipio: number;
+  codigoMunicipio: number;
   nome: string;
   status: number;
 }
 
 class ValidacoesCadastrar {
-  async validar({ codigo_municipio, nome, status }: IRequest): Promise<void> {
-    await existeBairroComNomeJaCadastradoNoMunicipio(codigo_municipio, nome);
-    validarCamposObrigatorios(codigo_municipio, nome, status, 'incluir');
+  async validar({ codigoMunicipio, nome, status }: IRequest): Promise<void> {
+    await existeBairroComNomeJaCadastradoNoMunicipio(codigoMunicipio, nome);
+    validarCamposObrigatorios(codigoMunicipio, nome, status, 'incluir');
     validarValorDoStatus(status, 'incluir o bairro');
-    await existeMunicipioBairro(codigo_municipio, 'incluir');
+    await existeMunicipioBairro(codigoMunicipio, 'incluir');
   }
 }
 

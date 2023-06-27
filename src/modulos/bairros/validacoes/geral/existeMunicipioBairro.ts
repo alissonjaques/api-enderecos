@@ -3,15 +3,15 @@ import { RepositorioMunicipio } from '@modules/municipios/typeorm/repositorios/R
 import { getCustomRepository } from 'typeorm';
 
 async function existeMunicipioBairro(
-  codigo_municipio: number,
+  codigoMunicipio: number,
   descricaoMetodo: string,
 ): Promise<void> {
   const repositorioMunicipio = getCustomRepository(RepositorioMunicipio);
-  const municipio = await repositorioMunicipio.findOne(codigo_municipio);
+  const municipio = await repositorioMunicipio.findOne(codigoMunicipio);
 
   if (!municipio) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o bairro no banco de dados.<br>Motivo: município com codigoMunicipio = ${codigo_municipio} não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o bairro no banco de dados.<br>Motivo: município com codigoMunicipio = ${codigoMunicipio} não encontrado.`,
       404,
     );
   }

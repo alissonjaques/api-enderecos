@@ -3,15 +3,15 @@ import Bairro from '@modules/bairros/typeorm/entidades/Bairro';
 import { RepositorioBairro } from '@modules/bairros/typeorm/repositorios/RepositorioBairro';
 
 async function existeBairro(
-  codigo_bairro: number,
+  codigoBairro: number,
   repositorioBairro: RepositorioBairro,
   descricaoMetodo: string,
 ): Promise<Bairro> {
-  const bairro = await repositorioBairro.findOne(codigo_bairro);
+  const bairro = await repositorioBairro.findOne(codigoBairro);
 
   if (!bairro) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o bairro com codigoBairro = ${codigo_bairro}.<br>Motivo: bairro não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o bairro com codigoBairro = ${codigoBairro}.<br>Motivo: bairro não encontrado.`,
       404,
     );
   }

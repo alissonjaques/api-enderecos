@@ -31,7 +31,7 @@ export class RepositorioBairro extends Repository<Bairro> {
     );
 
     construtorDeConsultas = construtorDeConsultas.andWhere(
-      'UPPER(tb_bairro.codigo_municipio) = :codigo_municipio',
+      'UPPER(tb_bairro.municipio.codigoMunicipio) = :codigo_municipio',
       {
         codigo_municipio: codigo_municipio,
       },

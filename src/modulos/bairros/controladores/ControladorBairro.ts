@@ -41,7 +41,7 @@ export default class ControladorBairro {
     const codigo_municipio = Number(codigoMunicipio);
     const servicoCriarBairro = new ServicoCriarBairro();
     const bairro = await servicoCriarBairro.executa({
-      codigo_municipio: codigo_municipio,
+      codigoMunicipio: codigo_municipio,
       nome,
       status,
     });
@@ -59,8 +59,8 @@ export default class ControladorBairro {
 
     const servicoAtualizarBairro = new ServicoAtualizarBairro();
     const bairro = await servicoAtualizarBairro.executa({
-      codigo_bairro,
-      codigo_municipio,
+      codigoBairro: codigo_bairro,
+      codigoMunicipio: codigo_municipio,
       nome,
       status,
     });
@@ -75,7 +75,7 @@ export default class ControladorBairro {
     const { codigoBairro } = request.params;
     const codigo_bairro = Number(codigoBairro);
     const servicoDeletarBairro = new ServicoDeletarBairro();
-    await servicoDeletarBairro.execute({ codigo_bairro });
+    await servicoDeletarBairro.execute({ codigoBairro: codigo_bairro });
 
     return response.json([]);
   }
