@@ -18,8 +18,8 @@ class ServicoCriarUf {
     const validacoes = new ValidacoesCadastrar();
     await validacoes.validar({ sigla, nome, status });
 
-    const codigo_uf = await gerarSequence('sequence_uf');
-    const uf = repositorioUf.create({ codigo_uf, sigla, nome, status });
+    const codigoUF = await gerarSequence('sequence_uf');
+    const uf = repositorioUf.create({ codigoUF, sigla, nome, status });
     await repositorioUf.save(uf);
 
     const servicoListarUfs = new ServicoListarUfs();

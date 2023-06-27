@@ -6,7 +6,7 @@ class Uf {
     name: 'CODIGO_UF',
     type: 'number',
   })
-  codigo_uf: number;
+  codigoUF: number;
 
   @Column({
     name: 'SIGLA',

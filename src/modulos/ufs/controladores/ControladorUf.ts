@@ -60,7 +60,7 @@ export default class ControladorUf {
     const codigo_uf = Number(codigoUF);
     const servicoAtualizarUf = new ServicoAtualizarUf();
     const uf = await servicoAtualizarUf.executa({
-      codigo_uf,
+      codigoUF: codigo_uf,
       sigla,
       nome,
       status,
@@ -75,7 +75,7 @@ export default class ControladorUf {
     const { codigoUF } = request.params;
     const codigo_uf = Number(codigoUF);
     const servicoDeletarUf = new ServicoDeletarUf();
-    await servicoDeletarUf.execute({ codigo_uf });
+    await servicoDeletarUf.execute({ codigoUF: codigo_uf });
 
     return response.json([]);
   }

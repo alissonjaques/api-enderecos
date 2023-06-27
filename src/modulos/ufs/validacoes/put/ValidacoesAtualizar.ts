@@ -5,7 +5,7 @@ import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 
 interface IRequest {
-  codigo_uf: number;
+  codigoUF: number;
   sigla: string;
   nome: string;
   status: number;
@@ -13,11 +13,11 @@ interface IRequest {
 
 class ValidacoesAtualizar {
   async validar(
-    { codigo_uf, sigla, nome, status }: IRequest,
+    { codigoUF, sigla, nome, status }: IRequest,
     uf: Uf,
   ): Promise<void> {
-    await existeUfComSiglaJaCadastradaAtualizacao(codigo_uf, sigla, uf.sigla);
-    await existeUfComNomeJaCadastradoAtualizacao(codigo_uf, nome, uf.nome);
+    await existeUfComSiglaJaCadastradaAtualizacao(codigoUF, sigla, uf.sigla);
+    await existeUfComNomeJaCadastradoAtualizacao(codigoUF, nome, uf.nome);
     validarCamposObrigatorios(sigla, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar a UF');
   }

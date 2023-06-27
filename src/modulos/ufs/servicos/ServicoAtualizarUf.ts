@@ -7,7 +7,7 @@ import existeUf from '../validacoes/delete/existeUf';
 import AppErros from '@compartilhado/erros/AppErros';
 
 interface IRequest {
-  codigo_uf: number;
+  codigoUF: number;
   sigla: string;
   nome: string;
   status: number;
@@ -15,23 +15,23 @@ interface IRequest {
 
 class ServicoAtualizarUf {
   public async executa({
-    codigo_uf,
+    codigoUF,
     sigla,
     nome,
     status,
   }: IRequest): Promise<Uf[]> {
     const repositorioUf = getCustomRepository(RepositorioUf);
 
-    if (!codigo_uf) {
+    if (!codigoUF) {
       throw new AppErros(
         `Não foi possível atualizar o UF no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
       );
     }
 
-    const uf = await existeUf(codigo_uf, repositorioUf, 'atualizar');
+    const uf = await existeUf(codigoUF, repositorioUf, 'atualizar');
 
     const validacoes = new ValidacoesAtualizar();
-    await validacoes.validar({ codigo_uf, sigla, nome, status }, uf);
+    await validacoes.validar({ codigoUF, sigla, nome, status }, uf);
 
     uf.nome = nome;
     uf.sigla = sigla;

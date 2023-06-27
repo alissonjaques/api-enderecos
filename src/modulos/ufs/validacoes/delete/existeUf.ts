@@ -3,15 +3,15 @@ import AppErros from '@compartilhado/erros/AppErros';
 import Uf from '../../typeorm/entidades/Uf';
 
 async function existeUf(
-  codigo_uf: number,
+  codigoUF: number,
   repositorioUf: RepositorioUf,
   descricaoMetodo: string,
 ): Promise<Uf> {
-  const uf = await repositorioUf.findOne(codigo_uf);
+  const uf = await repositorioUf.findOne(codigoUF);
 
   if (!uf) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a UF com codigoUF = ${codigo_uf}.<br>Motivo: UF não encontrada.`,
+      `Não foi possível ${descricaoMetodo} a UF com codigoUF = ${codigoUF}.<br>Motivo: UF não encontrada.`,
       404,
     );
   }
