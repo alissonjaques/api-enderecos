@@ -10,7 +10,7 @@ class ServicoListarEnderecos {
     this.consulta = '';
   }
 
-  public async executa(): Promise<Endereco[]> {
+  public async executa(codigoPessoa: number): Promise<Endereco[]> {
     this.consulta = `SELECT CODIGO_ENDERECO AS "codigoEndereco",
                      CODIGO_PESSOA AS "codigoPessoa",
                      CODIGO_BAIRRO AS "codigoBairro",
@@ -19,6 +19,7 @@ class ServicoListarEnderecos {
                      COMPLEMENTO AS "complemento",
                      CEP AS "cep"
                      FROM TB_ENDERECO
+                     WHERE CODIGO_PESSOA = ${codigoPessoa}
                      ORDER BY CODIGO_ENDERECO DESC`;
 
     const resultadoConsulta = await this.entityManager.query(this.consulta);

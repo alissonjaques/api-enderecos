@@ -5,6 +5,7 @@ import ServicoListarPessoas from './ServicoListarPessoas';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 import gerarSequence from '@compartilhado/util/gerarSequence';
 import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
+import ServicoCriarEnderecos from '@modules/enderecos/servicos/ServicoCriarEnderecos';
 
 interface IRequest {
   nome: string;
@@ -49,8 +50,11 @@ class ServicoCriarPessoa {
       senha,
       status,
     });
-    await repositorioPessoa.save(pessoa);
 
+    const servicoCriarEnderecos = new ServicoCriarEnderecos();
+    await servicoCriarEnderecos.executa({ enderecos, codigo_pessoa });
+
+    await repositorioPessoa.save(pessoa);
     const servicoListarPessoas = new ServicoListarPessoas();
     return await servicoListarPessoas.executa();
   }

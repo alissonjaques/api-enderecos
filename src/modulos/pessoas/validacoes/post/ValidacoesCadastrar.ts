@@ -3,6 +3,7 @@ import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import existePessoaComLoginJaCadastrado from './existePessoaComLoginJaCadastrado';
 import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
 import validarExistePeloMenosUmEndereco from '../geral/validarExistePeloMenosUmEndereco';
+import validarExisteEnderecoRepetidoNaLista from '../geral/validarExisteEnderecoRepetidoNaLista';
 
 interface IRequest {
   nome: string;
@@ -36,6 +37,7 @@ class ValidacoesCadastrar {
     );
     validarValorDoStatus(status, 'incluir a pessoa');
     validarExistePeloMenosUmEndereco(enderecos, 'incluir');
+    validarExisteEnderecoRepetidoNaLista(enderecos, 'incluir');
   }
 }
 

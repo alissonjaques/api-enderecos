@@ -46,6 +46,7 @@ export default class ControladorPessoa {
   ): Promise<Response> {
     const { nome, sobrenome, idade, login, senha, status, enderecos } =
       request.body;
+    console.log(enderecos);
     const servicoCriarPessoa = new ServicoCriarPessoa();
     const pessoa = await servicoCriarPessoa.executa({
       nome,
@@ -57,7 +58,7 @@ export default class ControladorPessoa {
       enderecos,
     });
 
-    return response.json(pessoa);
+    return response.json({ ...pessoa, enderecos: [] });
   }
 
   public async atualizar(
