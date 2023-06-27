@@ -1,6 +1,8 @@
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import existePessoaComLoginJaCadastrado from './existePessoaComLoginJaCadastrado';
+import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
+import validarExistePeloMenosUmEndereco from '../geral/validarExistePeloMenosUmEndereco';
 
 interface IRequest {
   nome: string;
@@ -9,6 +11,7 @@ interface IRequest {
   login: string;
   senha: string;
   status: number;
+  enderecos: Endereco[];
 }
 
 class ValidacoesCadastrar {
@@ -19,6 +22,7 @@ class ValidacoesCadastrar {
     login,
     senha,
     status,
+    enderecos,
   }: IRequest): Promise<void> {
     await existePessoaComLoginJaCadastrado(login);
     validarCamposObrigatorios(
@@ -31,6 +35,7 @@ class ValidacoesCadastrar {
       'incluir',
     );
     validarValorDoStatus(status, 'incluir a pessoa');
+    validarExistePeloMenosUmEndereco(enderecos, 'incluir');
   }
 }
 
