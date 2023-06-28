@@ -3,14 +3,14 @@ import { RepositorioPessoa } from '../typeorm/repositorios/RepositorioPessoa';
 import existePessoa from '../validacoes/delete/existePessoa';
 
 interface IRequest {
-  codigo_pessoa: number;
+  codigoPessoa: number;
 }
 
 class ServicoDeletarPessoa {
-  public async execute({ codigo_pessoa }: IRequest): Promise<void> {
+  public async execute({ codigoPessoa }: IRequest): Promise<void> {
     const repositorioPessoa = getCustomRepository(RepositorioPessoa);
     const pessoa = await existePessoa(
-      codigo_pessoa,
+      codigoPessoa,
       repositorioPessoa,
       'deletar',
     );

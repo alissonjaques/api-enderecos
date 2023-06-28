@@ -40,9 +40,9 @@ class ServicoCriarPessoa {
       enderecos,
     });
 
-    const codigo_pessoa = await gerarSequence('sequence_pessoa');
+    const codigoPessoa = await gerarSequence('sequence_pessoa');
     const pessoa = repositorioPessoa.create({
-      codigo_pessoa,
+      codigoPessoa,
       nome,
       sobrenome,
       idade,
@@ -52,7 +52,7 @@ class ServicoCriarPessoa {
     });
 
     const servicoCriarEnderecos = new ServicoCriarEnderecos();
-    await servicoCriarEnderecos.executa({ enderecos, codigo_pessoa });
+    await servicoCriarEnderecos.executa({ enderecos, codigoPessoa });
 
     await repositorioPessoa.save(pessoa);
     const servicoListarPessoas = new ServicoListarPessoas();

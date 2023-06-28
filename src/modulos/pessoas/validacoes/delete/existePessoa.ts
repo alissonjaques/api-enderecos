@@ -3,15 +3,15 @@ import AppErros from '@compartilhado/erros/AppErros';
 import Pessoa from '../../typeorm/entidades/Pessoa';
 
 async function existePessoa(
-  codigo_pessoa: number,
+  codigoPessoa: number,
   repositorioPessoa: RepositorioPessoa,
   descricaoMetodo: string,
 ): Promise<Pessoa> {
-  const pessoa = await repositorioPessoa.findOne(codigo_pessoa);
+  const pessoa = await repositorioPessoa.findOne(codigoPessoa);
 
   if (!pessoa) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa com codigoPessoa = ${codigo_pessoa}.<br>Motivo: pessoa não encontrada.`,
+      `Não foi possível ${descricaoMetodo} a pessoa com codigoPessoa = ${codigoPessoa}.<br>Motivo: pessoa não encontrada.`,
       404,
     );
   }

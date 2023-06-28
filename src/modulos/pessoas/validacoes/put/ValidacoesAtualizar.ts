@@ -4,7 +4,7 @@ import Pessoa from '@modules/pessoas/typeorm/entidades/Pessoa';
 import existePessoaComLoginJaCadastradoAtualizacao from './existePessoaComLoginJaCadastradoAtualizacao';
 
 interface IRequest {
-  codigo_pessoa: number;
+  codigoPessoa: number;
   nome: string;
   sobrenome: string;
   idade: number;
@@ -15,11 +15,11 @@ interface IRequest {
 
 class ValidacoesAtualizar {
   async validar(
-    { codigo_pessoa, nome, sobrenome, idade, login, senha, status }: IRequest,
+    { codigoPessoa, nome, sobrenome, idade, login, senha, status }: IRequest,
     pessoa: Pessoa,
   ): Promise<void> {
     await existePessoaComLoginJaCadastradoAtualizacao(
-      codigo_pessoa,
+      codigoPessoa,
       login,
       pessoa.login,
     );

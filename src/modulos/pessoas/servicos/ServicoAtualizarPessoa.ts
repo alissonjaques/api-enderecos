@@ -7,7 +7,7 @@ import AppErros from '@compartilhado/erros/AppErros';
 import { RepositorioPessoa } from '../typeorm/repositorios/RepositorioPessoa';
 
 interface IRequest {
-  codigo_pessoa: number;
+  codigoPessoa: number;
   nome: string;
   sobrenome: string;
   idade: number;
@@ -18,7 +18,7 @@ interface IRequest {
 
 class ServicoAtualizarPessoa {
   public async executa({
-    codigo_pessoa,
+    codigoPessoa,
     nome,
     sobrenome,
     idade,
@@ -28,21 +28,21 @@ class ServicoAtualizarPessoa {
   }: IRequest): Promise<Pessoa[]> {
     const repositorioPessoa = getCustomRepository(RepositorioPessoa);
 
-    if (!codigo_pessoa) {
+    if (!codigoPessoa) {
       throw new AppErros(
         `Não foi possível atualizar a pessoa no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
       );
     }
 
     const pessoa = await existePessoa(
-      codigo_pessoa,
+      codigoPessoa,
       repositorioPessoa,
       'atualizar',
     );
 
     const validacoes = new ValidacoesAtualizar();
     await validacoes.validar(
-      { codigo_pessoa, nome, sobrenome, idade, login, senha, status },
+      { codigoPessoa, nome, sobrenome, idade, login, senha, status },
       pessoa,
     );
 
