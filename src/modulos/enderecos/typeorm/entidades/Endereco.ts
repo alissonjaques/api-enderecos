@@ -2,7 +2,7 @@ import Bairro from '@modules/bairros/typeorm/entidades/Bairro';
 import Pessoa from '@modules/pessoas/typeorm/entidades/Pessoa';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
-@Entity('TB_BAIRRO')
+@Entity('TB_ENDERECO')
 class Endereco {
   @PrimaryColumn({
     name: 'CODIGO_ENDERECO',
@@ -11,7 +11,7 @@ class Endereco {
   codigoEndereco: number;
 
   @ManyToOne(() => Pessoa)
-  @JoinColumn({ name: 'CODIGO_PESSSOA' })
+  @JoinColumn({ name: 'CODIGO_PESSOA' })
   pessoa: Pessoa;
 
   @ManyToOne(() => Bairro)

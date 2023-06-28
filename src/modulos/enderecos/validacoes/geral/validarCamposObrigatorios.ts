@@ -1,7 +1,6 @@
 import AppErros from '@compartilhado/erros/AppErros';
 
 function validarCamposObrigatorios(
-  codigoPessoa: number,
   codigoBairro: number,
   nomeRua: string,
   numero: string,
@@ -9,11 +8,7 @@ function validarCamposObrigatorios(
   cep: string,
   descricaoMetodo: string,
 ): void {
-  if (!codigoPessoa) {
-    throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
-    );
-  } else if (!codigoBairro) {
+  if (!codigoBairro) {
     throw new AppErros(
       `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo codigoBairro é obrigatório`,
     );

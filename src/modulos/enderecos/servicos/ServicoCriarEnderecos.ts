@@ -5,26 +5,35 @@ import { RepositorioEndereco } from '../typeorm/repositorios/RepositorioEndereco
 import gerarSequence from '@compartilhado/util/gerarSequence';
 
 interface IRequest {
-  enderecos: Endereco[];
-  codigoPessoa: number;
+  enderecos: any[];
 }
 
 class ServicoCriarEnderecos {
-  public async executa({ enderecos, codigoPessoa }: IRequest): Promise<void> {
-    const repositorioEndereco = getCustomRepository(RepositorioEndereco);
-
+  public async validarEnderecos({ enderecos }: IRequest): Promise<void> {
     const validacoes = new ValidacoesCadastrar();
     for (let i = 0; i < enderecos.length; i++) {
       const endereco = enderecos[i];
       await validacoes.validar({
-        codigoPessoa: codigoPessoa,
-        codigoBairro: endereco.bairro.codigoBairro,
+        codigoBairro: endereco.codigoBairro,
         nomeRua: endereco.nomeRua,
         numero: endereco.numero,
         complemento: endereco.complemento,
         cep: endereco.cep,
       });
+    }
+  }
+
+  public async executa(
+    { enderecos }: IRequest,
+    codigoPessoa: number,
+  ): Promise<void> {
+    const repositorioEndereco = getCustomRepository(RepositorioEndereco);
+
+    for (let i = 0; i < enderecos.length; i++) {
+      const endereco = enderecos[i];
       endereco.codigoEndereco = await gerarSequence('sequence_endereco');
+      endereco.pessoa = { codigoPessoa: codigoPessoa };
+      endereco.bairro = { codigoBairro: endereco.codigoBairro };
     }
 
     const enderecosPreparados = repositorioEndereco.create(enderecos);

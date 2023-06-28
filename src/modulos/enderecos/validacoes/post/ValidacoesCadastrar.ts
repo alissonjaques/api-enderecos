@@ -1,7 +1,9 @@
+import { getCustomRepository } from 'typeorm';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
+import validarExisteBairro from '../geral/validarExisteBairro';
+import { RepositorioBairro } from '@modules/bairros/typeorm/repositorios/RepositorioBairro';
 
 interface IRequest {
-  codigoPessoa: number;
   codigoBairro: number;
   nomeRua: string;
   numero: string;
@@ -11,15 +13,15 @@ interface IRequest {
 
 class ValidacoesCadastrar {
   async validar({
-    codigoPessoa,
     codigoBairro,
     nomeRua,
     numero,
     complemento,
     cep,
   }: IRequest): Promise<void> {
+    const repositorioBairro = getCustomRepository(RepositorioBairro);
+    await validarExisteBairro(codigoBairro, repositorioBairro, 'cadastrar');
     validarCamposObrigatorios(
-      codigoPessoa,
       codigoBairro,
       nomeRua,
       numero,

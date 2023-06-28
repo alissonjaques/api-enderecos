@@ -46,9 +46,8 @@ export default class ControladorPessoa {
   ): Promise<Response> {
     const { nome, sobrenome, idade, login, senha, status, enderecos } =
       request.body;
-    console.log(enderecos);
     const servicoCriarPessoa = new ServicoCriarPessoa();
-    const pessoa = await servicoCriarPessoa.executa({
+    const pessoas = await servicoCriarPessoa.executa({
       nome,
       sobrenome,
       idade,
@@ -58,7 +57,20 @@ export default class ControladorPessoa {
       enderecos,
     });
 
-    return response.json({ ...pessoa, enderecos: [] });
+    const pessoasComEnderecosVazios = pessoas.map(pessoa => {
+      return {
+        codigoPessoa: pessoa.codigoPessoa,
+        nome: pessoa.nome,
+        sobrenome: pessoa.sobrenome,
+        idade: pessoa.idade,
+        login: pessoa.login,
+        senha: pessoa.senha,
+        status: pessoa.status,
+        enderecos: [],
+      };
+    });
+
+    return response.json(pessoasComEnderecosVazios);
   }
 
   public async atualizar(
@@ -70,7 +82,7 @@ export default class ControladorPessoa {
     const codigo_pessoa = Number(codigoPessoa);
     const servicoAtualizarPessoa = new ServicoAtualizarPessoa();
     const pessoa = await servicoAtualizarPessoa.executa({
-      codigo_pessoa,
+      codigoPessoa: codigo_pessoa,
       nome,
       sobrenome,
       idade,
@@ -88,7 +100,7 @@ export default class ControladorPessoa {
     const { codigoPessoa } = request.params;
     const codigo_pessoa = Number(codigoPessoa);
     const servicoDeletarPessoa = new ServicoDeletarPessoa();
-    await servicoDeletarPessoa.execute({ codigo_pessoa });
+    await servicoDeletarPessoa.execute({ codigoPessoa: codigo_pessoa });
 
     return response.json([]);
   }
