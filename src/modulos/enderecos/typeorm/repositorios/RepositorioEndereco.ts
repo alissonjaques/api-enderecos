@@ -4,14 +4,14 @@ import Endereco from '../entidades/Endereco';
 @EntityRepository(Endereco)
 export class RepositorioEndereco extends Repository<Endereco> {
   public async encontrarPorCodigoPessoa(
-    codigo_pessoa: number,
+    codigoPessoa: number,
   ): Promise<Endereco> {
     let construtorDeConsultas = this.createQueryBuilder('tb_endereco');
 
     construtorDeConsultas = construtorDeConsultas.where(
-      'tb_endereco.codigo_pessoa = :codigo_pessoa',
+      'tb_endereco.pessoa.codigoPessoa = :codigo_pessoa',
       {
-        codigo_pessoa: codigo_pessoa,
+        codigo_pessoa: codigoPessoa,
       },
     );
 

@@ -1,23 +1,23 @@
 import AppErros from '@compartilhado/erros/AppErros';
 
 function validarCamposObrigatorios(
-  codigo_pessoa: number,
-  codigo_bairro: number,
-  nome_rua: string,
+  codigoPessoa: number,
+  codigoBairro: number,
+  nomeRua: string,
   numero: string,
   complemento: string,
   cep: string,
   descricaoMetodo: string,
 ): void {
-  if (!codigo_pessoa) {
+  if (!codigoPessoa) {
     throw new AppErros(
       `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
     );
-  } else if (!codigo_bairro) {
+  } else if (!codigoBairro) {
     throw new AppErros(
       `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo codigoBairro é obrigatório`,
     );
-  } else if (!nome_rua) {
+  } else if (!nomeRua) {
     throw new AppErros(
       `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo nomeRua é obrigatório`,
     );

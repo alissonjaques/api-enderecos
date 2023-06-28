@@ -6,9 +6,9 @@ import { RepositorioEndereco } from '../typeorm/repositorios/RepositorioEndereco
 import gerarSequence from '@compartilhado/util/gerarSequence';
 
 interface IRequest {
-  codigo_pessoa: number;
-  codigo_bairro: number;
-  nome_rua: string;
+  codigoPessoa: number;
+  codigoBairro: number;
+  nomeRua: string;
   numero: string;
   complemento: string;
   cep: string;
@@ -16,9 +16,9 @@ interface IRequest {
 
 class ServicoCriarEndereco {
   public async executa({
-    codigo_pessoa,
-    codigo_bairro,
-    nome_rua,
+    codigoPessoa,
+    codigoBairro,
+    nomeRua,
     numero,
     complemento,
     cep,
@@ -27,20 +27,20 @@ class ServicoCriarEndereco {
 
     const validacoes = new ValidacoesCadastrar();
     await validacoes.validar({
-      codigo_pessoa,
-      codigo_bairro,
-      nome_rua,
+      codigoPessoa,
+      codigoBairro,
+      nomeRua,
       numero,
       complemento,
       cep,
     });
 
-    const codigo_endereco = await gerarSequence('sequence_endereco');
+    const codigoEndereco = await gerarSequence('sequence_endereco');
     const endereco = repositorioEndereco.create({
-      codigo_endereco,
-      codigo_pessoa: { codigo_pessoa: codigo_pessoa },
-      codigo_bairro: { codigo_bairro: codigo_bairro },
-      nome_rua,
+      codigoEndereco,
+      pessoa: { codigoPessoa: codigoPessoa },
+      bairro: { codigoBairro: codigoBairro },
+      nomeRua,
       numero,
       complemento,
       cep,
@@ -49,7 +49,7 @@ class ServicoCriarEndereco {
     await repositorioEndereco.save(endereco);
 
     const servicoListarEnderecos = new ServicoListarEnderecos();
-    return await servicoListarEnderecos.executa();
+    return await servicoListarEnderecos.executa(codigoPessoa);
   }
 }
 

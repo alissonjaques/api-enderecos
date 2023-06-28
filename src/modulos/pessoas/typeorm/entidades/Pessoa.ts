@@ -6,7 +6,7 @@ class Pessoa {
     name: 'CODIGO_PESSOA',
     type: 'number',
   })
-  codigo_pessoa: number;
+  codigoPessoa: number;
 
   @Column({
     name: 'NOME',

@@ -3,15 +3,15 @@ import { RepositorioEndereco } from '../typeorm/repositorios/RepositorioEndereco
 import existeEndereco from '../validacoes/delete/existeEndereco';
 
 interface IRequest {
-  codigo_endereco: number;
+  codigoEndereco: number;
 }
 
 class ServicoDeletarEndereco {
-  public async execute({ codigo_endereco }: IRequest): Promise<void> {
+  public async execute({ codigoEndereco }: IRequest): Promise<void> {
     const repositorioEndereco = getCustomRepository(RepositorioEndereco);
 
     const endereco = await existeEndereco(
-      codigo_endereco,
+      codigoEndereco,
       repositorioEndereco,
       'deletar',
     );

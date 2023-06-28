@@ -8,21 +8,21 @@ class Endereco {
     name: 'CODIGO_ENDERECO',
     type: 'number',
   })
-  codigo_endereco: number;
+  codigoEndereco: number;
 
   @ManyToOne(() => Pessoa)
   @JoinColumn({ name: 'CODIGO_PESSSOA' })
-  codigo_pessoa: Pessoa;
+  pessoa: Pessoa;
 
   @ManyToOne(() => Bairro)
   @JoinColumn({ name: 'CODIGO_BAIRRO' })
-  codigo_bairro: Bairro;
+  bairro: Bairro;
 
   @Column({
     name: 'NOME_RUA',
     type: 'varchar2',
   })
-  nome_rua: string;
+  nomeRua: string;
 
   @Column({
     name: 'NUMERO',
