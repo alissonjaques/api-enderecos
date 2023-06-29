@@ -5,6 +5,7 @@ import ValidacoesAtualizar from '../validacoes/put/ValidacoesAtualizar';
 import existePessoa from '../validacoes/delete/existePessoa';
 import AppErros from '@compartilhado/erros/AppErros';
 import { RepositorioPessoa } from '../typeorm/repositorios/RepositorioPessoa';
+import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
 
 interface IRequest {
   codigoPessoa: number;
@@ -14,6 +15,7 @@ interface IRequest {
   login: string;
   senha: string;
   status: number;
+  enderecos: Endereco[];
 }
 
 class ServicoAtualizarPessoa {
@@ -25,6 +27,7 @@ class ServicoAtualizarPessoa {
     login,
     senha,
     status,
+    enderecos,
   }: IRequest): Promise<Pessoa[]> {
     const repositorioPessoa = getCustomRepository(RepositorioPessoa);
 

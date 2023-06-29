@@ -1,5 +1,4 @@
 import { getCustomRepository } from 'typeorm';
-import Endereco from '../typeorm/entidades/Endereco';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 import { RepositorioEndereco } from '../typeorm/repositorios/RepositorioEndereco';
 import gerarSequence from '@compartilhado/util/gerarSequence';
