@@ -5,7 +5,7 @@ import Endereco from '../entidades/Endereco';
 export class RepositorioEndereco extends Repository<Endereco> {
   public async encontrarPorCodigoPessoa(
     codigoPessoa: number,
-  ): Promise<Endereco> {
+  ): Promise<Endereco[]> {
     let construtorDeConsultas = this.createQueryBuilder('tb_endereco');
 
     construtorDeConsultas = construtorDeConsultas.where(
@@ -16,6 +16,6 @@ export class RepositorioEndereco extends Repository<Endereco> {
     );
 
     const listaEnderecos = await construtorDeConsultas.getMany();
-    return listaEnderecos[0];
+    return listaEnderecos;
   }
 }

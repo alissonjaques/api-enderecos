@@ -8,6 +8,7 @@ import { RepositorioPessoa } from '@modules/pessoas/typeorm/repositorios/Reposit
 import validarExistePessoa from '../geral/validarExistePessoa';
 import validarIgualdadeDePessoas from './validarIgualdadeDePessoas';
 import AppErros from '@compartilhado/erros/AppErros';
+import existeEndereco from '../delete/existeEndereco';
 
 interface IRequest {
   codigoEndereco: number;
@@ -31,13 +32,14 @@ class ValidacoesAtualizar {
     cep,
     codigoPessoaEndereco,
   }: IRequest): Promise<void> {
+    const repositorioEndereco = getCustomRepository(RepositorioEndereco);
+    await existeEndereco(codigoEndereco, repositorioEndereco, 'atualizar');
     if (!codigoPessoa) {
       throw new AppErros(
         `Não foi possível atualizar o endereço no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
       );
     }
 
-    const repositorioEndereco = getCustomRepository(RepositorioEndereco);
     await validarExisteEndereco(
       codigoEndereco,
       repositorioEndereco,

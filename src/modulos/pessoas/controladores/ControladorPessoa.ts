@@ -77,11 +77,19 @@ export default class ControladorPessoa {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { codigoPessoa, nome, sobrenome, idade, login, senha, status } =
-      request.body;
+    const {
+      codigoPessoa,
+      nome,
+      sobrenome,
+      idade,
+      login,
+      senha,
+      status,
+      enderecos,
+    } = request.body;
     const codigo_pessoa = Number(codigoPessoa);
     const servicoAtualizarPessoa = new ServicoAtualizarPessoa();
-    const pessoa = await servicoAtualizarPessoa.executa({
+    const pessoas = await servicoAtualizarPessoa.executa({
       codigoPessoa: codigo_pessoa,
       nome,
       sobrenome,
@@ -89,8 +97,23 @@ export default class ControladorPessoa {
       login,
       senha,
       status,
+      enderecos,
     });
-    return response.json(pessoa);
+
+    const pessoasComEnderecosVazios = pessoas.map(pessoa => {
+      return {
+        codigoPessoa: pessoa.codigoPessoa,
+        nome: pessoa.nome,
+        sobrenome: pessoa.sobrenome,
+        idade: pessoa.idade,
+        login: pessoa.login,
+        senha: pessoa.senha,
+        status: pessoa.status,
+        enderecos: [],
+      };
+    });
+
+    return response.json(pessoasComEnderecosVazios);
   }
 
   public async deletar(
