@@ -41,7 +41,7 @@ class ServicoCriarPessoa {
     });
 
     const servicoCriarEnderecos = new ServicoCriarEnderecos();
-    await servicoCriarEnderecos.validarEnderecos({ enderecos });
+    await servicoCriarEnderecos.validarEnderecos({ enderecos }, false);
 
     const codigoPessoa = await gerarSequence('sequence_pessoa');
     const pessoa = repositorioPessoa.create({

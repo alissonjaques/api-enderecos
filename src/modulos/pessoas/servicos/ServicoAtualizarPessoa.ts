@@ -103,9 +103,12 @@ class ServicoAtualizarPessoa {
 
     // validações
     if (Object.keys(enderecosParaInclusao).length !== 0) {
-      await servicoCriarEnderecos.validarEnderecos({
-        enderecos: enderecosParaInclusao,
-      });
+      await servicoCriarEnderecos.validarEnderecos(
+        {
+          enderecos: enderecosParaInclusao,
+        },
+        true,
+      );
     }
 
     if (Object.keys(enderecosParaDelecaoOuAtualizacao).length !== 0) {

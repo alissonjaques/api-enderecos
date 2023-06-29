@@ -2,16 +2,25 @@ import { getCustomRepository } from 'typeorm';
 import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 import { RepositorioEndereco } from '../typeorm/repositorios/RepositorioEndereco';
 import gerarSequence from '@compartilhado/util/gerarSequence';
+import AppErros from '@compartilhado/erros/AppErros';
 
 interface IRequest {
   enderecos: any[];
 }
 
 class ServicoCriarEnderecos {
-  public async validarEnderecos({ enderecos }: IRequest): Promise<void> {
+  public async validarEnderecos(
+    { enderecos }: IRequest,
+    deveFericarPessoa: boolean,
+  ): Promise<void> {
     const validacoes = new ValidacoesCadastrar();
     for (let i = 0; i < enderecos.length; i++) {
       const endereco = enderecos[i];
+      if (deveFericarPessoa && !endereco.codigoPessoa) {
+        throw new AppErros(
+          `Não foi possível inserir o endereço no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
+        );
+      }
       await validacoes.validar({
         codigoBairro: endereco.codigoBairro,
         nomeRua: endereco.nomeRua,
