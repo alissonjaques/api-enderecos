@@ -1,5 +1,13 @@
+import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
 import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity('TB_BAIRRO')
 class Bairro {
@@ -9,7 +17,7 @@ class Bairro {
   })
   codigoBairro: number;
 
-  @ManyToOne(() => Municipio)
+  @ManyToOne(() => Municipio, municipio => municipio.bairros)
   @JoinColumn({ name: 'CODIGO_MUNICIPIO' })
   municipio: Municipio;
 
@@ -24,6 +32,9 @@ class Bairro {
     type: 'number',
   })
   status: number;
+
+  @OneToMany(() => Endereco, endereco => endereco.bairro)
+  enderecos: Endereco[];
 }
 
 export default Bairro;

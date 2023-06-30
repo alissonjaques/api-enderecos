@@ -10,11 +10,11 @@ class Endereco {
   })
   codigoEndereco: number;
 
-  @ManyToOne(() => Pessoa)
+  @ManyToOne(() => Pessoa, pessoa => pessoa.enderecos)
   @JoinColumn({ name: 'CODIGO_PESSOA' })
   pessoa: Pessoa;
 
-  @ManyToOne(() => Bairro)
+  @ManyToOne(() => Bairro, bairro => bairro.enderecos)
   @JoinColumn({ name: 'CODIGO_BAIRRO' })
   bairro: Bairro;
 

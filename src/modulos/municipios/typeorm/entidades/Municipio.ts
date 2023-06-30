@@ -1,5 +1,13 @@
+import Bairro from '@modules/bairros/typeorm/entidades/Bairro';
 import Uf from '@modules/ufs/typeorm/entidades/Uf';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity('TB_MUNICIPIO')
 class Municipio {
@@ -9,7 +17,7 @@ class Municipio {
   })
   codigoMunicipio: number;
 
-  @ManyToOne(() => Uf)
+  @ManyToOne(() => Uf, uf => uf.municipios)
   @JoinColumn({ name: 'CODIGO_UF' })
   uf: Uf;
 
@@ -24,6 +32,9 @@ class Municipio {
     type: 'number',
   })
   status: number;
+
+  @OneToMany(() => Bairro, bairro => bairro.municipio)
+  bairros: Bairro[];
 }
 
 export default Municipio;

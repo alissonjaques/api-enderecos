@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity('TB_PESSOA')
 class Pessoa {
@@ -43,6 +44,9 @@ class Pessoa {
     type: 'number',
   })
   status: number;
+
+  @OneToMany(() => Endereco, endereco => endereco.pessoa)
+  enderecos: Endereco[];
 }
 
 export default Pessoa;

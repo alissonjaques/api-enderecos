@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity('TB_UF')
 class Uf {
@@ -25,6 +26,9 @@ class Uf {
     type: 'number',
   })
   status: number;
+
+  @OneToMany(() => Municipio, municipio => municipio.uf)
+  municipios: Municipio[];
 }
 
 export default Uf;

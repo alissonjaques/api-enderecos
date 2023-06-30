@@ -16,15 +16,16 @@ export default class ControladorPessoa {
         request.query,
       );
 
-      if (
-        !request.query.codigoUF &&
-        !request.query.sigla &&
-        !request.query.nome &&
-        request.query.status
-      ) {
-        return response.json(pessoas);
+      if (request.query.codigoPessoa) {
+        const { codigoPessoa } = request.query;
+        const codigo_pessoa = Number(codigoPessoa);
+        const pessoa = await servicoListarPessoas.consultarDetalhamentoPessoa(
+          codigo_pessoa,
+        );
+        return response.json(pessoa ?? []);
       }
-      return response.json(pessoas[0] ?? []);
+
+      return response.json(pessoas);
     }
     const pessoas = await servicoListarPessoas.executa();
     return response.json(pessoas);
