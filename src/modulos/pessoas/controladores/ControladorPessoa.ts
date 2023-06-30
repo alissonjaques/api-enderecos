@@ -17,6 +17,9 @@ export default class ControladorPessoa {
       );
 
       if (request.query.codigoPessoa) {
+        if (Object.keys(pessoas).length == 0) {
+          return response.json([]);
+        }
         const { codigoPessoa } = request.query;
         const codigo_pessoa = Number(codigoPessoa);
         const pessoa = await servicoListarPessoas.consultarDetalhamentoPessoa(
@@ -25,10 +28,16 @@ export default class ControladorPessoa {
         return response.json(pessoa ?? []);
       }
 
-      return response.json(pessoas);
+      const pessoasEnderecos = pessoas.map(pessoa => {
+        return { ...pessoa, enderecos: [] };
+      });
+      return response.json(pessoasEnderecos);
     }
     const pessoas = await servicoListarPessoas.executa();
-    return response.json(pessoas);
+    const pessoasEnderecos = pessoas.map(pessoa => {
+      return { ...pessoa, enderecos: [] };
+    });
+    return response.json(pessoasEnderecos);
   }
 
   public async listar(request: Request, response: Response): Promise<Response> {
