@@ -3,6 +3,7 @@ import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import existeUfComNomeJaCadastrado from './existeUfComNomeJaCadastrado';
 import existeUfComSiglaJaCadastrada from './existeUfComSiglaJaCadastrada';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
+import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 
 interface IRequest {
   sigla: string;
@@ -17,6 +18,7 @@ class ValidacoesCadastrar {
     validarCamposObrigatorios(sigla, nome, status, 'incluir');
     validarValorDoStatus(status, 'incluir a UF');
     validarCamposComApenasEspacos(sigla, nome, 'incluir');
+    validarCapacidadeMinimaCaracteres(sigla, nome, 'incluir');
   }
 }
 

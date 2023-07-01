@@ -4,6 +4,7 @@ import existeUfComSiglaJaCadastradaAtualizacao from './existeUfComSiglaJaCadastr
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
+import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 
 interface IRequest {
   codigoUF: number;
@@ -22,6 +23,7 @@ class ValidacoesAtualizar {
     validarCamposObrigatorios(sigla, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar a UF');
     validarCamposComApenasEspacos(sigla, nome, 'atualizar');
+    validarCapacidadeMinimaCaracteres(sigla, nome, 'atualizar');
   }
 }
 
