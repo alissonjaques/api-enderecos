@@ -3,6 +3,7 @@ import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import Municipio from '@modules/municipios/typeorm/entidades/Municipio';
 import existeUfMunicipio from '../geral/existeUfMunicipio';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
+import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 
 interface IRequest {
   codigoMunicipio: number;
@@ -25,6 +26,7 @@ class ValidacoesAtualizar {
     validarCamposObrigatorios(codigoUF, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar o município');
     await existeUfMunicipio(codigoUF, 'incluir');
+    validarCamposComApenasEspacos(nome, 'incluir');
   }
 }
 
