@@ -46,8 +46,8 @@ class ValidacoesAtualizar {
       'atualizar',
     );
     validarValorDoStatus(status, 'atualizar a pessoa');
-    validarExistePeloMenosUmEndereco(enderecos, 'incluir');
-    validarExisteEnderecoRepetidoNaLista(enderecos, 'incluir');
+    validarExistePeloMenosUmEndereco(enderecos, 'atualizar');
+    validarExisteEnderecoRepetidoNaLista(enderecos, 'atualizar');
   }
 }
 

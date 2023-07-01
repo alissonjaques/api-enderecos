@@ -24,7 +24,7 @@ class ValidacoesAtualizar {
     );
     validarCamposObrigatorios(codigoMunicipio, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar o bairro');
-    await existeMunicipioBairro(codigoMunicipio, 'incluir');
+    await existeMunicipioBairro(codigoMunicipio, 'atualizar');
   }
 }
 

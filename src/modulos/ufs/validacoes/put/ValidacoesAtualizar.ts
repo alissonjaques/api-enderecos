@@ -21,7 +21,7 @@ class ValidacoesAtualizar {
     await existeUfComNomeJaCadastradoAtualizacao(codigoUF, nome, uf.nome);
     validarCamposObrigatorios(sigla, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar a UF');
-    validarCamposComApenasEspacos(sigla, nome, 'incluir');
+    validarCamposComApenasEspacos(sigla, nome, 'atualizar');
   }
 }
 

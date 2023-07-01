@@ -25,8 +25,8 @@ class ValidacoesAtualizar {
     );
     validarCamposObrigatorios(codigoUF, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar o município');
-    await existeUfMunicipio(codigoUF, 'incluir');
-    validarCamposComApenasEspacos(nome, 'incluir');
+    await existeUfMunicipio(codigoUF, 'atualizar');
+    validarCamposComApenasEspacos(nome, 'atualizar');
   }
 }
 
