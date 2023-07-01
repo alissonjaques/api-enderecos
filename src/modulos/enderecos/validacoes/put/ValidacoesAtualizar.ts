@@ -9,6 +9,7 @@ import validarExistePessoa from '../geral/validarExistePessoa';
 import validarIgualdadeDePessoas from './validarIgualdadeDePessoas';
 import AppErros from '@compartilhado/erros/AppErros';
 import existeEndereco from '../delete/existeEndereco';
+import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 
 interface IRequest {
   codigoEndereco: number;
@@ -56,6 +57,13 @@ class ValidacoesAtualizar {
 
     validarCamposObrigatorios(
       codigoBairro,
+      nomeRua,
+      numero,
+      complemento,
+      cep,
+      'atualizar',
+    );
+    validarCamposComApenasEspacos(
       nomeRua,
       numero,
       complemento,
