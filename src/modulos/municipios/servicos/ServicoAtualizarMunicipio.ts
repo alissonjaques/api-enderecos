@@ -29,6 +29,12 @@ class ServicoAtualizarMunicipio {
       );
     }
 
+    if (!codigoUF) {
+      throw new AppErros(
+        `Não foi possível atualizar o município no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
+      );
+    }
+
     const municipio = await existeMunicipio(
       codigoMunicipio,
       repositorioMunicipio,
