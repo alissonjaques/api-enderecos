@@ -3,6 +3,7 @@ import existeMunicipioComNomeJaCadastradoNaUf from './existeMunicipioComNomeJaCa
 import existeUfMunicipio from '../geral/existeUfMunicipio';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
+import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 
 interface IRequest {
   codigoUF: number;
@@ -17,6 +18,7 @@ class ValidacoesCadastrar {
     validarValorDoStatus(status, 'incluir o município');
     await existeUfMunicipio(codigoUF, 'incluir');
     validarCamposComApenasEspacos(nome, 'incluir');
+    validarCapacidadeMinimaCaracteres(nome, 'incluir');
   }
 }
 

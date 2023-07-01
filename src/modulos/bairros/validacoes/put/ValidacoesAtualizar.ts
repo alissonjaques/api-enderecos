@@ -4,6 +4,7 @@ import Bairro from '@modules/bairros/typeorm/entidades/Bairro';
 import existeMunicipioBairro from '../geral/existeMunicipioBairro';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
+import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 
 interface IRequest {
   codigoBairro: number;
@@ -27,6 +28,7 @@ class ValidacoesAtualizar {
     validarValorDoStatus(status, 'atualizar o bairro');
     await existeMunicipioBairro(codigoMunicipio, 'atualizar');
     validarCamposComApenasEspacos(nome, 'atualizar');
+    validarCapacidadeMinimaCaracteres(nome, 'atualizar');
   }
 }
 

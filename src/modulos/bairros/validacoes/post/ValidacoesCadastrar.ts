@@ -3,6 +3,7 @@ import existeBairroComNomeJaCadastradoNoMunicipio from './existeBairroComNomeJaC
 import existeMunicipioBairro from '../geral/existeMunicipioBairro';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
+import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 
 interface IRequest {
   codigoMunicipio: number;
@@ -17,6 +18,7 @@ class ValidacoesCadastrar {
     validarValorDoStatus(status, 'incluir o bairro');
     await existeMunicipioBairro(codigoMunicipio, 'incluir');
     validarCamposComApenasEspacos(nome, 'incluir');
+    validarCapacidadeMinimaCaracteres(nome, 'incluir');
   }
 }
 
