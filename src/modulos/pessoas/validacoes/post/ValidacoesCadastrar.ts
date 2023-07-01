@@ -4,6 +4,7 @@ import existePessoaComLoginJaCadastrado from './existePessoaComLoginJaCadastrado
 import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
 import validarExistePeloMenosUmEndereco from '../geral/validarExistePeloMenosUmEndereco';
 import validarExisteEnderecoRepetidoNaLista from '../geral/validarExisteEnderecoRepetidoNaLista';
+import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 
 interface IRequest {
   nome: string;
@@ -38,6 +39,7 @@ class ValidacoesCadastrar {
     validarValorDoStatus(status, 'incluir a pessoa');
     validarExistePeloMenosUmEndereco(enderecos, 'incluir');
     validarExisteEnderecoRepetidoNaLista(enderecos, 'incluir');
+    validarCamposComApenasEspacos(nome, sobrenome, login, senha, 'incluir');
   }
 }
 

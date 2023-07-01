@@ -5,6 +5,7 @@ import existePessoaComLoginJaCadastradoAtualizacao from './existePessoaComLoginJ
 import validarExistePeloMenosUmEndereco from '../geral/validarExistePeloMenosUmEndereco';
 import validarExisteEnderecoRepetidoNaLista from '../geral/validarExisteEnderecoRepetidoNaLista';
 import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
+import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 
 interface IRequest {
   codigoPessoa: number;
@@ -48,6 +49,7 @@ class ValidacoesAtualizar {
     validarValorDoStatus(status, 'atualizar a pessoa');
     validarExistePeloMenosUmEndereco(enderecos, 'atualizar');
     validarExisteEnderecoRepetidoNaLista(enderecos, 'atualizar');
+    validarCamposComApenasEspacos(nome, sobrenome, login, senha, 'atualizar');
   }
 }
 
