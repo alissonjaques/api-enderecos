@@ -7,6 +7,7 @@ import validarExisteEnderecoRepetidoNaLista from '../geral/validarExisteEndereco
 import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
+import validarSenhaForte from '../geral/validarSenhaForte';
 
 interface IRequest {
   codigoPessoa: number;
@@ -52,6 +53,7 @@ class ValidacoesAtualizar {
     validarExisteEnderecoRepetidoNaLista(enderecos, 'atualizar');
     validarCamposComApenasEspacos(nome, sobrenome, login, senha, 'atualizar');
     validarCapacidadeMinimaCaracteres(nome, sobrenome, 'atualizar');
+    validarSenhaForte(senha, 'atualizar');
   }
 }
 

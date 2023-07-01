@@ -6,6 +6,7 @@ import validarExistePeloMenosUmEndereco from '../geral/validarExistePeloMenosUmE
 import validarExisteEnderecoRepetidoNaLista from '../geral/validarExisteEnderecoRepetidoNaLista';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
+import validarSenhaForte from '../geral/validarSenhaForte';
 
 interface IRequest {
   nome: string;
@@ -42,6 +43,7 @@ class ValidacoesCadastrar {
     validarExisteEnderecoRepetidoNaLista(enderecos, 'incluir');
     validarCamposComApenasEspacos(nome, sobrenome, login, senha, 'incluir');
     validarCapacidadeMinimaCaracteres(nome, sobrenome, 'incluir');
+    validarSenhaForte(senha, 'incluir');
   }
 }
 
