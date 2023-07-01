@@ -2,6 +2,7 @@ import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import existeBairroComNomeJaCadastradoNoMunicipio from './existeBairroComNomeJaCadastradoNoMunicipio';
 import existeMunicipioBairro from '../geral/existeMunicipioBairro';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
+import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 
 interface IRequest {
   codigoMunicipio: number;
@@ -15,6 +16,7 @@ class ValidacoesCadastrar {
     validarCamposObrigatorios(codigoMunicipio, nome, status, 'incluir');
     validarValorDoStatus(status, 'incluir o bairro');
     await existeMunicipioBairro(codigoMunicipio, 'incluir');
+    validarCamposComApenasEspacos(nome, 'incluir');
   }
 }
 
