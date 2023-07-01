@@ -1,0 +1,10 @@
+{
+  "type": "oracle",
+  "host": "localhost",
+  "port": 1521,
+  "username": "C##NODE",
+  "password": "node",
+  "sid": "XE",
+  "database": "CONEXAO_2023_NODE",
+  "entities": ["./src/modulos/**/typeorm/entidades/*.ts"]
+}

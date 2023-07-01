@@ -3,6 +3,7 @@ import Uf from '@modules/ufs/typeorm/entidades/Uf';
 import existeUfComSiglaJaCadastradaAtualizacao from './existeUfComSiglaJaCadastradaAtualizacao';
 import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
+import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 
 interface IRequest {
   codigoUF: number;
@@ -20,6 +21,7 @@ class ValidacoesAtualizar {
     await existeUfComNomeJaCadastradoAtualizacao(codigoUF, nome, uf.nome);
     validarCamposObrigatorios(sigla, nome, status, 'atualizar');
     validarValorDoStatus(status, 'atualizar a UF');
+    validarCamposComApenasEspacos(sigla, nome, 'incluir');
   }
 }
 
