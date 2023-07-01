@@ -10,6 +10,7 @@ import validarIgualdadeDePessoas from './validarIgualdadeDePessoas';
 import AppErros from '@compartilhado/erros/AppErros';
 import existeEndereco from '../delete/existeEndereco';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
+import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 
 interface IRequest {
   codigoEndereco: number;
@@ -70,6 +71,7 @@ class ValidacoesAtualizar {
       cep,
       'atualizar',
     );
+    validarCapacidadeMinimaCaracteres(nomeRua, complemento, 'atualizar');
   }
 }
 
