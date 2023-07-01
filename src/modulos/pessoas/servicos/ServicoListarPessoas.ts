@@ -40,6 +40,13 @@ class ServicoListarPessoas {
       ],
     });
 
+    if (pessoa && pessoa.enderecos) {
+      pessoa.enderecos.sort(
+        (enderecoAtual, enderecoProximo) =>
+          enderecoProximo.codigoEndereco - enderecoAtual.codigoEndereco,
+      );
+    }
+
     return pessoa;
   }
 

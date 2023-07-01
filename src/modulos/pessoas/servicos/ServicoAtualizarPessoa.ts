@@ -10,6 +10,7 @@ import ServicoAtualizarEnderecos from '@modules/enderecos/servicos/ServicoAtuali
 import { RepositorioEndereco } from '@modules/enderecos/typeorm/repositorios/RepositorioEndereco';
 import ServicoDeletarEndereco from '@modules/enderecos/servicos/ServicoDeletarEnderecos';
 import ServicoCriarEnderecos from '@modules/enderecos/servicos/ServicoCriarEnderecos';
+import validarCodigoPessoaEnderecosInclusao from '../validacoes/geral/validarCodigoPessoaEnderecosInclusao';
 
 interface IRequest {
   codigoPessoa: number;
@@ -103,6 +104,7 @@ class ServicoAtualizarPessoa {
 
     // validações
     if (Object.keys(enderecosParaInclusao).length !== 0) {
+      validarCodigoPessoaEnderecosInclusao(enderecos, codigoPessoa);
       await servicoCriarEnderecos.validarEnderecos(
         {
           enderecos: enderecosParaInclusao,

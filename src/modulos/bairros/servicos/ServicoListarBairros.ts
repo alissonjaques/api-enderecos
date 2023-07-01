@@ -56,8 +56,8 @@ class ServicoListarBairros {
     }
 
     if (
+      !params.codigoBairro &&
       !params.codigoMunicipio &&
-      !params.codigoUF &&
       !params.nome &&
       params.status
     ) {
@@ -91,6 +91,7 @@ class ServicoListarBairros {
     }
 
     this.consulta += 'ORDER BY TB_BAIRRO.CODIGO_BAIRRO DESC';
+
     const resultadoConsulta = await this.entityManager.query(this.consulta);
 
     return resultadoConsulta;
