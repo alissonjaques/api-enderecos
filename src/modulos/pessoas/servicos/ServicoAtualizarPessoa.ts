@@ -11,6 +11,7 @@ import { RepositorioEndereco } from '@modules/enderecos/typeorm/repositorios/Rep
 import ServicoDeletarEndereco from '@modules/enderecos/servicos/ServicoDeletarEnderecos';
 import ServicoCriarEnderecos from '@modules/enderecos/servicos/ServicoCriarEnderecos';
 import validarCodigoPessoaEnderecosInclusao from '../validacoes/geral/validarCodigoPessoaEnderecosInclusao';
+import gerarHash from '@compartilhado/util/gerarHash';
 
 interface IRequest {
   codigoPessoa: number;
@@ -56,11 +57,13 @@ class ServicoAtualizarPessoa {
 
     await this.ajustarEnderecosPessoa(codigoPessoa, enderecos);
 
+    const senhaCriptografada = gerarHash(senha);
+
     pessoa.nome = nome;
     pessoa.sobrenome = sobrenome;
     pessoa.idade = idade;
     pessoa.login = login;
-    pessoa.senha = senha;
+    pessoa.senha = senhaCriptografada;
     pessoa.status = status;
 
     await repositorioPessoa.save(pessoa);

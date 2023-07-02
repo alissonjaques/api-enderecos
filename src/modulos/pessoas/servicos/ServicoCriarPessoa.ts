@@ -6,6 +6,7 @@ import ValidacoesCadastrar from '../validacoes/post/ValidacoesCadastrar';
 import gerarSequence from '@compartilhado/util/gerarSequence';
 import Endereco from '@modules/enderecos/typeorm/entidades/Endereco';
 import ServicoCriarEnderecos from '@modules/enderecos/servicos/ServicoCriarEnderecos';
+import gerarHash from '@compartilhado/util/gerarHash';
 
 interface IRequest {
   nome: string;
@@ -44,13 +45,14 @@ class ServicoCriarPessoa {
     await servicoCriarEnderecos.validarEnderecos({ enderecos }, false);
 
     const codigoPessoa = await gerarSequence('sequence_pessoa');
+    const senhaCriptografada = gerarHash(senha);
     const pessoa = repositorioPessoa.create({
       codigoPessoa,
       nome,
       sobrenome,
       idade,
       login,
-      senha,
+      senha: senhaCriptografada,
       status,
     });
 
