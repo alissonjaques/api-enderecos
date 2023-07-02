@@ -23,8 +23,3 @@ Abra [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu na
 
 A página será recarregada quando você fizer alterações.\
 Você também pode ver erros de lint no console.
-
-##
-### `yarn test`
-
-Inicia o executor de teste no modo de observação interativo.
