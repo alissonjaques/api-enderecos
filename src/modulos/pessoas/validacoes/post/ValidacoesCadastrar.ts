@@ -7,6 +7,7 @@ import validarExisteEnderecoRepetidoNaLista from '../geral/validarExisteEndereco
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 import validarSenhaForte from '../geral/validarSenhaForte';
+import validarEmail from '../geral/validarEmail';
 
 interface IRequest {
   nome: string;
@@ -44,6 +45,7 @@ class ValidacoesCadastrar {
     validarCamposComApenasEspacos(nome, sobrenome, login, senha, 'incluir');
     validarCapacidadeMinimaCaracteres(nome, sobrenome, 'incluir');
     validarSenhaForte(senha, 'incluir');
+    validarEmail(login, 'incluir');
   }
 }
 
