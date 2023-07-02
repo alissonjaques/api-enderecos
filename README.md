@@ -27,4 +27,4 @@ Você também pode ver erros de lint no console.
 ##
 ### `yarn test`
 
-Inicia o executor de teste no modo de observação interativo.\
+Inicia o executor de teste no modo de observação interativo.
