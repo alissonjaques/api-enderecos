@@ -10,7 +10,6 @@ Este projeto consiste em uma API Rest escrita para gerenciar cadastro de endere�
 ## Scripts Disponíveis
 
 No diretório do projeto, você pode executar:
-##
 
 ### `yarn`
 
