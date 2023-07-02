@@ -19,7 +19,7 @@ Baixa e atualiza todas as dependências da aplicação.
 
 ### `yarn dev`
 Executa o aplicativo no modo de desenvolvimento.\
-Abra [http://localhost:3000](http://localhost:3333) para visualizá-lo em seu navegador.
+Abra [http://localhost:3333](http://localhost:3333) para visualizá-lo em seu navegador.
 
 A página será recarregada quando você fizer alterações.\
 Você também pode ver erros de lint no console.
