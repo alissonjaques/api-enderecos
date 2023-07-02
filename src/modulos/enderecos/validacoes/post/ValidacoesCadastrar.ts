@@ -5,6 +5,7 @@ import { RepositorioBairro } from '@modules/bairros/typeorm/repositorios/Reposit
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
 import validarCep from '../geral/validarCep';
+import validarCampoNumero from '../geral/validarCampoNumero';
 
 interface IRequest {
   codigoBairro: number;
@@ -35,6 +36,7 @@ class ValidacoesCadastrar {
     validarCamposComApenasEspacos(nomeRua, numero, complemento, cep, 'incluir');
     validarCapacidadeMinimaCaracteres(nomeRua, complemento, 'incluir');
     validarCep(cep, 'incluir');
+    validarCampoNumero(numero, 'incluir');
   }
 }
 
