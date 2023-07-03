@@ -25,7 +25,50 @@ export default class ControladorPessoa {
         const pessoa = await servicoListarPessoas.consultarDetalhamentoPessoa(
           codigo_pessoa,
         );
-        return response.json(pessoa ?? []);
+        return response.json(
+          pessoa
+            ? {
+                codigoPessoa: pessoa.codigoPessoa,
+                nome: pessoa.nome,
+                sobrenome: pessoa.sobrenome,
+                idade: pessoa.idade,
+                login: pessoa.login,
+                senha: pessoa.senha,
+                status: pessoa.status,
+                enderecos: pessoa.enderecos.map(endereco => {
+                  return {
+                    codigoEndereco: endereco.codigoEndereco,
+                    codigoPessoa: pessoa.codigoPessoa,
+                    codigoBairro: endereco.bairro.codigoBairro,
+                    nomeRua: endereco.nomeRua,
+                    numero: endereco.numero,
+                    complemento: endereco.complemento,
+                    cep: endereco.cep,
+                    bairro: {
+                      codigoBairro: endereco.bairro.codigoBairro,
+                      codigoMunicipio:
+                        endereco.bairro.municipio.codigoMunicipio,
+                      nome: endereco.bairro.nome,
+                      status: endereco.bairro.status,
+                      municipio: {
+                        codigoMunicipio:
+                          endereco.bairro.municipio.codigoMunicipio,
+                        codigoUF: endereco.bairro.municipio.uf.codigoUF,
+                        nome: endereco.bairro.municipio.nome,
+                        status: endereco.bairro.municipio.status,
+                        uf: {
+                          codigoUF: endereco.bairro.municipio.uf.codigoUF,
+                          sigla: endereco.bairro.municipio.uf.sigla,
+                          nome: endereco.bairro.municipio.uf.nome,
+                          status: endereco.bairro.municipio.uf.status,
+                        },
+                      },
+                    },
+                  };
+                }),
+              }
+            : [],
+        );
       }
 
       const pessoasEnderecos = pessoas.map(pessoa => {
