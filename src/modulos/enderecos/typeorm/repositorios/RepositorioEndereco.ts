@@ -42,4 +42,20 @@ export class RepositorioEndereco extends Repository<Endereco> {
     const listaEnderecos = await construtorDeConsultas.getMany();
     return listaEnderecos;
   }
+
+  public async encontrarPorCodigoBairro(
+    codigoBairro: number,
+  ): Promise<Endereco[]> {
+    let construtorDeConsultas = this.createQueryBuilder('tb_endereco');
+
+    construtorDeConsultas = construtorDeConsultas.where(
+      'tb_endereco.bairro.codigoBairro = :codigo_bairro',
+      {
+        codigo_bairro: codigoBairro,
+      },
+    );
+
+    const listaEnderecos = await construtorDeConsultas.getMany();
+    return listaEnderecos;
+  }
 }

@@ -1,5 +1,6 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository, getCustomRepository } from 'typeorm';
 import Bairro from '../entidades/Bairro';
+import { RepositorioEndereco } from '@modules/enderecos/typeorm/repositorios/RepositorioEndereco';
 
 @EntityRepository(Bairro)
 export class RepositorioBairro extends Repository<Bairro> {
@@ -55,5 +56,13 @@ export class RepositorioBairro extends Repository<Bairro> {
 
     const listaBairros = await construtorDeConsultas.getMany();
     return listaBairros;
+  }
+
+  public async estaEmUso(codigoBairro: number): Promise<boolean> {
+    const repositorioEndereco = getCustomRepository(RepositorioEndereco);
+    const enderecos = await repositorioEndereco.encontrarPorCodigoBairro(
+      codigoBairro,
+    );
+    return Object.keys(enderecos).length !== 0 ? true : false;
   }
 }
