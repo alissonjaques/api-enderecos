@@ -60,7 +60,30 @@ class ServicoListarPessoas {
                      STATUS as "status"
                      FROM TB_PESSOA WHERE `;
 
-    if (!params.codigoPessoa && !params.login && params.status) {
+    if (
+      !params.codigoPessoa &&
+      params.login &&
+      !params.status &&
+      !params.idade &&
+      !params.nome &&
+      !params.sobrenome
+    ) {
+      this.consulta += `UPPER(TB_PESSOA.LOGIN) = '${params.login.toUpperCase()}'
+                        ORDER BY CODIGO_PESSOA DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+      return resultadoConsulta;
+    }
+
+    if (
+      !params.codigoPessoa &&
+      !params.login &&
+      params.status &&
+      !params.idade &&
+      !params.nome &&
+      !params.sobrenome
+    ) {
       this.consulta += `TB_PESSOA.STATUS = ${params.status}
                         ORDER BY CODIGO_PESSOA DESC`;
 
@@ -69,8 +92,47 @@ class ServicoListarPessoas {
       return resultadoConsulta;
     }
 
-    if (!params.codigoPessoa && params.login && !params.status) {
-      this.consulta += `UPPER(TB_PESSOA.LOGIN) = '${params.login.toUpperCase()}'
+    if (
+      !params.codigoPessoa &&
+      !params.login &&
+      !params.status &&
+      params.idade &&
+      !params.nome &&
+      !params.sobrenome
+    ) {
+      this.consulta += `TB_PESSOA.IDADE = ${params.idade}
+                        ORDER BY CODIGO_PESSOA DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+      return resultadoConsulta;
+    }
+
+    if (
+      !params.codigoPessoa &&
+      !params.login &&
+      !params.status &&
+      !params.idade &&
+      params.nome &&
+      !params.sobrenome
+    ) {
+      this.consulta += `UPPER(TB_PESSOA.NOME) = '${params.nome.toUpperCase()}'
+                        ORDER BY CODIGO_PESSOA DESC`;
+
+      const resultadoConsulta = await this.entityManager.query(this.consulta);
+
+      return resultadoConsulta;
+    }
+
+    if (
+      !params.codigoPessoa &&
+      !params.login &&
+      !params.status &&
+      !params.idade &&
+      !params.nome &&
+      params.sobrenome
+    ) {
+      this.consulta += `UPPER(TB_PESSOA.SOBRENOME) = '${params.sobrenome.toUpperCase()}'
                         ORDER BY CODIGO_PESSOA DESC`;
 
       const resultadoConsulta = await this.entityManager.query(this.consulta);
@@ -92,6 +154,28 @@ class ServicoListarPessoas {
       params.login || params.codigoPessoa
         ? (this.consulta += `AND TB_PESSOA.STATUS = ${params.status} `)
         : (this.consulta += `TB_PESSOA.STATUS = ${params.status} `);
+    }
+
+    if (params.idade) {
+      params.status || params.login || params.codigoPessoa
+        ? (this.consulta += `AND TB_PESSOA.IDADE = ${params.idade} `)
+        : (this.consulta += `TB_PESSOA.IDADE = ${params.idade} `);
+    }
+
+    if (params.nome) {
+      params.idade || params.status || params.login || params.codigoPessoa
+        ? (this.consulta += `AND UPPER(TB_PESSOA.NOME) = '${params.nome.toUpperCase()}' `)
+        : (this.consulta += `UPPER(TB_PESSOA.NOME) = '${params.nome.toUpperCase()}' `);
+    }
+
+    if (params.sobrenome) {
+      params.nome ||
+      params.idade ||
+      params.status ||
+      params.login ||
+      params.codigoPessoa
+        ? (this.consulta += `AND UPPER(TB_PESSOA.SOBRENOME) = '${params.sobrenome.toUpperCase()}' `)
+        : (this.consulta += `UPPER(TB_PESSOA.SOBRENOME) = '${params.sobrenome.toUpperCase()}' `);
     }
 
     this.consulta += 'ORDER BY TB_PESSOA.CODIGO_PESSOA DESC';
