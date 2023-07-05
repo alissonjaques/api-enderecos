@@ -76,6 +76,18 @@ class ValidacoesAtualizar {
     validarCapacidadeMinimaCaracteres(nomeRua, complemento, 'atualizar');
     validarCep(cep, 'atualizar');
     validarCampoNumero(numero, 'atualizar');
+
+    const existeEnderecoComCodigoEnderecoECodigoPessoa =
+      await repositorioEndereco.encontrarPorCodigoEnderecoECodigoPessoa(
+        codigoEndereco,
+        codigoPessoa,
+      );
+
+    if (Object.keys(existeEnderecoComCodigoEnderecoECodigoPessoa).length == 0) {
+      throw new AppErros(
+        `Não foi possível atualizar o endereço no banco de dados.<br>Motivo: não existe endereco com codigoEndereco = ${codigoEndereco} e codigoPessoa = ${codigoPessoa}`,
+      );
+    }
   }
 }
 
