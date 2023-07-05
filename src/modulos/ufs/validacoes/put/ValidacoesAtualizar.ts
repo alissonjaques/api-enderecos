@@ -25,7 +25,7 @@ class ValidacoesAtualizar {
     validarValorDoStatus(status, 'atualizar a UF');
     validarCamposComApenasEspacos(sigla, nome, 'atualizar');
     validarCapacidadeMinimaCaracteres(sigla, nome, 'atualizar');
-    await validarUfEstaEmUso(codigoUF, status, 'desativar');
+    await validarUfEstaEmUso(codigoUF, status, 'atualizar');
   }
 }
 

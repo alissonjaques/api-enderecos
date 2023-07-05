@@ -11,7 +11,7 @@ class ServicoDeletarUf {
   public async execute({ codigoUF }: IRequest): Promise<void> {
     const repositorioUf = getCustomRepository(RepositorioUf);
     const uf = await existeUf(codigoUF, repositorioUf, 'deletar');
-    await validarUfEstaEmUso(codigoUF, 2, 'deletar');
+    await validarUfEstaEmUso(codigoUF, 2, 'excluir');
     await repositorioUf.delete(uf);
   }
 }

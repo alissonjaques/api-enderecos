@@ -12,8 +12,8 @@ async function validarUfEstaEmUso(
   if (estaEmUso && status == 2) {
     throw new AppErros(
       `Não foi possível ${descricao} a UF de codigoUF = ${codigoUF}.<br>Motivo: existem municípios vinculados a essa UF, ${
-        descricao == 'desativar' ? 'desative-os' : 'exclua-os'
-      } antes de ${descricao} a UF.`,
+        descricao == 'atualizar' ? 'desative-os' : 'exclua-os'
+      } antes de ${descricao == 'atualizar' ? 'desativar' : 'excluir'} a UF.`,
     );
   }
 }
