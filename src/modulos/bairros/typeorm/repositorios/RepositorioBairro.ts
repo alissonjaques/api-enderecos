@@ -31,7 +31,7 @@ export class RepositorioBairro extends Repository<Bairro> {
     );
 
     construtorDeConsultas = construtorDeConsultas.andWhere(
-      'UPPER(tb_bairro.municipio.codigoMunicipio) = :codigo_municipio',
+      'tb_bairro.municipio.codigoMunicipio = :codigo_municipio',
       {
         codigo_municipio: codigo_municipio,
       },
@@ -39,5 +39,21 @@ export class RepositorioBairro extends Repository<Bairro> {
 
     const listaBairros = await construtorDeConsultas.getMany();
     return listaBairros[0];
+  }
+
+  public async encontrarPorCodigoMunicipio(
+    codigoMunicipio: number,
+  ): Promise<Bairro[]> {
+    let construtorDeConsultas = this.createQueryBuilder('tb_bairro');
+
+    construtorDeConsultas = construtorDeConsultas.where(
+      'tb_bairro.municipio.codigoMunicipio = :codigo_municipio',
+      {
+        codigo_municipio: codigoMunicipio,
+      },
+    );
+
+    const listaBairros = await construtorDeConsultas.getMany();
+    return listaBairros;
   }
 }

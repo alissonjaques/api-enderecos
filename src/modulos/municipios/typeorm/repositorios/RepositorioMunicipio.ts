@@ -1,5 +1,6 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository, getCustomRepository } from 'typeorm';
 import Municipio from '../entidades/Municipio';
+import { RepositorioBairro } from '@modules/bairros/typeorm/repositorios/RepositorioBairro';
 
 @EntityRepository(Municipio)
 export class RepositorioMunicipio extends Repository<Municipio> {
@@ -31,7 +32,7 @@ export class RepositorioMunicipio extends Repository<Municipio> {
     );
 
     construtorDeConsultas = construtorDeConsultas.andWhere(
-      'UPPER(tb_municipio.uf.codigoUF) = :codigo_uf',
+      'tb_municipio.uf.codigoUF = :codigo_uf',
       {
         codigo_uf: codigoUF,
       },
@@ -45,7 +46,7 @@ export class RepositorioMunicipio extends Repository<Municipio> {
     let construtorDeConsultas = this.createQueryBuilder('tb_municipio');
 
     construtorDeConsultas = construtorDeConsultas.where(
-      'UPPER(tb_municipio.uf.codigoUF) = :codigo_uf',
+      'tb_municipio.uf.codigoUF = :codigo_uf',
       {
         codigo_uf: codigoUF,
       },
@@ -53,5 +54,13 @@ export class RepositorioMunicipio extends Repository<Municipio> {
 
     const listaMunicipios = await construtorDeConsultas.getMany();
     return listaMunicipios;
+  }
+
+  public async estaEmUso(codigoMunicipio: number): Promise<boolean> {
+    const repositorioBairro = getCustomRepository(RepositorioBairro);
+    const bairros = await repositorioBairro.encontrarPorCodigoMunicipio(
+      codigoMunicipio,
+    );
+    return Object.keys(bairros).length !== 0 ? true : false;
   }
 }

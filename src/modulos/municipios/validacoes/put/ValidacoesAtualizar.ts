@@ -5,6 +5,7 @@ import existeUfMunicipio from '../geral/existeUfMunicipio';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
+import validarMunicipioEstaEmUso from '../geral/validarMunicipioEstaEmUso';
 
 interface IRequest {
   codigoMunicipio: number;
@@ -29,6 +30,7 @@ class ValidacoesAtualizar {
     await existeUfMunicipio(codigoUF, 'atualizar');
     validarCamposComApenasEspacos(nome, 'atualizar');
     validarCapacidadeMinimaCaracteres(nome, 'atualizar');
+    await validarMunicipioEstaEmUso(codigoMunicipio, status, 'atualizar');
   }
 }
 
