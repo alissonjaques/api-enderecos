@@ -5,6 +5,7 @@ import validarCamposObrigatorios from '../geral/validarCamposObrigatorios';
 import validarValorDoStatus from '@compartilhado/validacoes/validarValorDoStatus';
 import validarCamposComApenasEspacos from '../geral/validarCamposComApenasEspacos';
 import validarCapacidadeMinimaCaracteres from '../geral/validarCapacidadeMinimaCaracteres';
+import validarUfEstaEmUso from '../geral/validarUfEstaEmUso';
 
 interface IRequest {
   codigoUF: number;
@@ -24,6 +25,7 @@ class ValidacoesAtualizar {
     validarValorDoStatus(status, 'atualizar a UF');
     validarCamposComApenasEspacos(sigla, nome, 'atualizar');
     validarCapacidadeMinimaCaracteres(sigla, nome, 'atualizar');
+    await validarUfEstaEmUso(codigoUF, status, 'desativar');
   }
 }
 

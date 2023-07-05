@@ -40,4 +40,18 @@ export class RepositorioMunicipio extends Repository<Municipio> {
     const listaMunicipios = await construtorDeConsultas.getMany();
     return listaMunicipios[0];
   }
+
+  public async encontrarPorCodigoUF(codigoUF: number): Promise<Municipio[]> {
+    let construtorDeConsultas = this.createQueryBuilder('tb_municipio');
+
+    construtorDeConsultas = construtorDeConsultas.where(
+      'UPPER(tb_municipio.uf.codigoUF) = :codigo_uf',
+      {
+        codigo_uf: codigoUF,
+      },
+    );
+
+    const listaMunicipios = await construtorDeConsultas.getMany();
+    return listaMunicipios;
+  }
 }
