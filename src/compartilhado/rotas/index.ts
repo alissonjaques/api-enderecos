@@ -3,6 +3,7 @@ import mucipiosRotas from '@modules/municipios/rotas/municipios.rotas';
 import bairroRotas from '@modules/bairros/rotas/bairros.rotas';
 import pessoaRotas from '@modules/pessoas/rotas/pessoas.rotas';
 import loginRotas from '@modules/pessoas/rotas/login.rotas';
+import enderecoRotas from '@modules/enderecos/rotas/enderecos.rotas';
 import { Router } from 'express';
 
 const routes = Router();
@@ -12,5 +13,6 @@ routes.use('/municipio', mucipiosRotas);
 routes.use('/bairro', bairroRotas);
 routes.use('/pessoa', pessoaRotas);
 routes.use('/login', loginRotas);
+routes.use('/endereco', enderecoRotas);
 
 export default routes;
