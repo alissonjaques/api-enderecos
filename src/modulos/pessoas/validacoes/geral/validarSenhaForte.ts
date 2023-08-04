@@ -3,7 +3,7 @@ import AppErros from '@compartilhado/erros/AppErros';
 function validarSenhaForte(senha: string, descricaoMetodo: string): void {
   if (senha.length < 8) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados.<br>Motivo: a senha informada para a pessoa é fraca.<br> A senha precisa possuir:<br>Ao menos 8 dígitos;<br>Ao menos um caracter especial;<br>Letras maiúsculas e minúsculas;<br>Números.`,
+      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados. Motivo: a senha informada para a pessoa é fraca.  A senha precisa possuir: Ao menos 8 dígitos; Ao menos um caracter especial; Letras maiúsculas e minúsculas; Números.`,
     );
   }
 
@@ -17,7 +17,7 @@ function validarSenhaForte(senha: string, descricaoMetodo: string): void {
     !contemNumeros.test(senha)
   ) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados.<br>Motivo: a senha informada para a pessoa é fraca.<br> A senha precisa possuir:<br>Ao menos 8 dígitos;<br>Ao menos um caracter especial;<br>Letras maiúsculas e minúsculas;<br>Números.`,
+      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados. Motivo: a senha informada para a pessoa é fraca.  A senha precisa possuir: Ao menos 8 dígitos; Ao menos um caracter especial; Letras maiúsculas e minúsculas; Números.`,
     );
   }
 
@@ -25,7 +25,7 @@ function validarSenhaForte(senha: string, descricaoMetodo: string): void {
 
   if (!contemCaracteresEspeciais.test(senha)) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados.<br>Motivo: a senha informada para a pessoa é fraca.<br> A senha precisa possuir:<br>Ao menos 8 dígitos;<br>Ao menos um caracter especial;<br>Letras maiúsculas e minúsculas;<br>Números.`,
+      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados. Motivo: a senha informada para a pessoa é fraca.  A senha precisa possuir: Ao menos 8 dígitos; Ao menos um caracter especial; Letras maiúsculas e minúsculas; Números.`,
     );
   }
 }

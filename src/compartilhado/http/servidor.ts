@@ -38,14 +38,14 @@ app.use(
         .replace(/actual/g, 'atual')
         .replace(/maximum/g, 'máximo');
       mensagemErro =
-        'Não foi possível incluir o campo no banco de dados.<br>Motivo:' +
+        'Não foi possível incluir o campo no banco de dados. Motivo:' +
         mensagem;
     } else if (error.message.includes('ORA-01438')) {
       mensagemErro =
-        'Não foi possível incluir o campo no banco de dados.<br>Motivo: valor maior que a precisão especificada usado para esta coluna';
+        'Não foi possível incluir o campo no banco de dados. Motivo: valor maior que a precisão especificada usado para esta coluna';
     } else if (error.message.includes('ORA-00904')) {
       mensagemErro =
-        'Não foi possível realizar a operação.<br>Motivo: ' +
+        'Não foi possível realizar a operação. Motivo: ' +
         error.message
           .replace(/"/g, '')
           .replace(/ORA-00904: /g, '')

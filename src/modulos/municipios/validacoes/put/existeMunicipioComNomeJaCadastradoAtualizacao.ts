@@ -16,7 +16,7 @@ async function existeMunicipioComNomeJaCadastradoAtualizacao(
     );
     if (existeMunicipio && nome.toUpperCase() !== nomeMunicipio.toUpperCase()) {
       throw new AppErros(
-        `Não foi possível atualizar o município de codigoMunicipio = ${codigoMunicipio}.<br>Motivo: já existe um município com o nome = ${nome} cadastrado para a UF com codigoUF = ${codigoUF}.`,
+        `Não foi possível atualizar o município de codigoMunicipio = ${codigoMunicipio}. Motivo: já existe um município com o nome = ${nome} cadastrado para a UF com codigoUF = ${codigoUF}.`,
       );
     }
   }

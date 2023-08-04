@@ -6,7 +6,7 @@ function validarIgualdadeDePessoas(
 ): void {
   if (codigoPessoa !== codigoPessoaEndereco) {
     throw new AppErros(
-      `Não foi possível atualizar o endereço.<br>Motivo: o campo codigoPessoa = ${codigoPessoaEndereco} da pessoa não corresponde ao endereco com codigoPessoa = ${codigoPessoa}.`,
+      `Não foi possível atualizar o endereço. Motivo: o campo codigoPessoa = ${codigoPessoaEndereco} da pessoa não corresponde ao endereco com codigoPessoa = ${codigoPessoa}.`,
       404,
     );
   }

@@ -23,7 +23,7 @@ class ServicoCriarSessaoUsuario {
 
     if (!pessoa) {
       throw new AppErros(
-        'Não foi possível logar.<br>Motivo: login ou senha inválidos',
+        'Não foi possível logar. Motivo: login ou senha inválidos',
         401,
       );
     }
@@ -35,7 +35,7 @@ class ServicoCriarSessaoUsuario {
 
     if (!senhaOk) {
       throw new AppErros(
-        'Não foi possível logar.<br>Motivo: login ou senha inválidos',
+        'Não foi possível logar. Motivo: login ou senha inválidos',
         401,
       );
     }

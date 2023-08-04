@@ -11,7 +11,7 @@ async function existePessoa(
 
   if (!pessoa) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa com codigoPessoa = ${codigoPessoa}.<br>Motivo: pessoa não encontrada.`,
+      `Não foi possível ${descricaoMetodo} a pessoa com codigoPessoa = ${codigoPessoa}. Motivo: pessoa não encontrada.`,
       404,
     );
   }

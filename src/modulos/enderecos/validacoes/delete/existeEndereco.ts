@@ -11,7 +11,7 @@ async function existeEndereco(
 
   if (!endereco) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço com codigoEndereco = ${codigoEndereco}.<br>Motivo: endereço não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o endereço com codigoEndereco = ${codigoEndereco}. Motivo: endereço não encontrado.`,
       404,
     );
   }

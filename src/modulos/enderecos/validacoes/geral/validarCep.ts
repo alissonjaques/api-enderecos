@@ -5,7 +5,7 @@ function validarCep(cep: string, descricaoMetodo: string): void {
 
   if (apenasNumeros.length !== 8) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço.<br>Motivo: CEP = ${cep} não é válido.`,
+      `Não foi possível ${descricaoMetodo} o endereço. Motivo: CEP = ${cep} não é válido.`,
       404,
     );
   }
@@ -14,7 +14,7 @@ function validarCep(cep: string, descricaoMetodo: string): void {
 
   if (!expressaoRegularCepValido.test(apenasNumeros)) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço.<br>Motivo: CEP = ${cep} não é válido.`,
+      `Não foi possível ${descricaoMetodo} o endereço. Motivo: CEP = ${cep} não é válido.`,
       404,
     );
   }

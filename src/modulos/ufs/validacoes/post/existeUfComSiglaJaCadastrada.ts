@@ -8,7 +8,7 @@ async function existeUfComSiglaJaCadastrada(sigla: string): Promise<void> {
     const existeUf = await repositorioUf.encontrarPorSigla(sigla);
     if (existeUf) {
       throw new AppErros(
-        `Não foi possível criar UF.<br>Já existe uma Unidade Federativa com a sigla = ${sigla} cadastrada no sistema.`,
+        `Não foi possível criar UF. Já existe uma Unidade Federativa com a sigla = ${sigla} cadastrada no sistema.`,
       );
     }
   }

@@ -10,7 +10,7 @@ async function validarExisteEndereco(
 
   if (!endereco) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço.<br>Motivo: endereço com codigoEndereco = ${codigoEndereco} não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o endereço. Motivo: endereço com codigoEndereco = ${codigoEndereco} não encontrado.`,
       404,
     );
   }

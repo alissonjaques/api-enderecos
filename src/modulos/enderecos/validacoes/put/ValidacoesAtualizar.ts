@@ -40,7 +40,7 @@ class ValidacoesAtualizar {
     await existeEndereco(codigoEndereco, repositorioEndereco, 'atualizar');
     if (!codigoPessoa) {
       throw new AppErros(
-        `Não foi possível atualizar o endereço no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
+        `Não foi possível atualizar o endereço no banco de dados. Motivo: o campo codigoPessoa é obrigatório`,
       );
     }
 
@@ -85,7 +85,7 @@ class ValidacoesAtualizar {
 
     if (Object.keys(existeEnderecoComCodigoEnderecoECodigoPessoa).length == 0) {
       throw new AppErros(
-        `Não foi possível atualizar o endereço no banco de dados.<br>Motivo: não existe endereco com codigoEndereco = ${codigoEndereco} e codigoPessoa = ${codigoPessoa}`,
+        `Não foi possível atualizar o endereço no banco de dados. Motivo: não existe endereco com codigoEndereco = ${codigoEndereco} e codigoPessoa = ${codigoPessoa}`,
       );
     }
   }

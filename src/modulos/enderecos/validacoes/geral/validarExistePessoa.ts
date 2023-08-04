@@ -10,7 +10,7 @@ async function validarExistePessoa(
 
   if (!pessoa) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço.<br>Motivo: pessoa com codigoPessoa = ${codigoPessoa} não encontrada.`,
+      `Não foi possível ${descricaoMetodo} o endereço. Motivo: pessoa com codigoPessoa = ${codigoPessoa} não encontrada.`,
       404,
     );
   }

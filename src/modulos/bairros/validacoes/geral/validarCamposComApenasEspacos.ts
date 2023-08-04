@@ -6,7 +6,7 @@ function validarCamposComApenasEspacos(
 ): void {
   if (nome.trim().length == 0) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} bairro no banco de dados.<br>Motivo: o campo nome não deve possuir apenas espaços em branco.`,
+      `Não foi possível ${descricaoMetodo} bairro no banco de dados. Motivo: o campo nome não deve possuir apenas espaços em branco.`,
     );
   }
 }

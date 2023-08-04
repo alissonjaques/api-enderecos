@@ -10,7 +10,7 @@ async function validarExisteBairro(
 
   if (!bairro) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço.<br>Motivo: bairro com codigoBairro = ${codigoBairro} não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o endereço. Motivo: bairro com codigoBairro = ${codigoBairro} não encontrado.`,
       404,
     );
   }

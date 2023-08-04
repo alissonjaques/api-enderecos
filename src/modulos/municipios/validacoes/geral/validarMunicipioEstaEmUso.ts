@@ -11,7 +11,7 @@ async function validarMunicipioEstaEmUso(
   const estaEmUso = await repositorioMunicipio.estaEmUso(codigoMunicipio);
   if (estaEmUso && status == 2) {
     throw new AppErros(
-      `Não foi possível ${descricao} o município de codigoMunicipio = ${codigoMunicipio}.<br>Motivo: existem bairros vinculados a esse município, ${
+      `Não foi possível ${descricao} o município de codigoMunicipio = ${codigoMunicipio}. Motivo: existem bairros vinculados a esse município, ${
         descricao == 'atualizar' ? 'desative-os' : 'exclua-os'
       } antes de ${
         descricao == 'atualizar' ? 'desativar' : 'excluir'

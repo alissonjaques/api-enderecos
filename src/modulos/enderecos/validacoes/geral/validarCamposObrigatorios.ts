@@ -10,23 +10,23 @@ function validarCamposObrigatorios(
 ): void {
   if (!codigoBairro) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo codigoBairro é obrigatório`,
+      `Não foi possível ${descricaoMetodo} o endereço no banco de dados. Motivo: o campo codigoBairro é obrigatório`,
     );
   } else if (!nomeRua) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo nomeRua é obrigatório`,
+      `Não foi possível ${descricaoMetodo} o endereço no banco de dados. Motivo: o campo nomeRua é obrigatório`,
     );
   } else if (!numero) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo numero é obrigatório`,
+      `Não foi possível ${descricaoMetodo} o endereço no banco de dados. Motivo: o campo numero é obrigatório`,
     );
   } else if (!complemento) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo complemento é obrigatório`,
+      `Não foi possível ${descricaoMetodo} o endereço no banco de dados. Motivo: o campo complemento é obrigatório`,
     );
   } else if (!cep) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o endereço no banco de dados.<br>Motivo: o campo cep é obrigatório`,
+      `Não foi possível ${descricaoMetodo} o endereço no banco de dados. Motivo: o campo cep é obrigatório`,
     );
   }
 }

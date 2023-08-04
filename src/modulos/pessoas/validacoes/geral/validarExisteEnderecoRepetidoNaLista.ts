@@ -10,7 +10,7 @@ function validarExisteEnderecoRepetidoNaLista(
 
   if (stringEnderecos.length !== setString.size) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados.<br>Motivo: existem endereços repetidos na requisição`,
+      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados. Motivo: existem endereços repetidos na requisição`,
     );
   }
 }

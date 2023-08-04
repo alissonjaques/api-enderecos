@@ -12,7 +12,7 @@ async function existeUfComNomeJaCadastradoAtualizacao(
     const existeUf = await repositorioUf.encontrarPorNome(nome);
     if (existeUf && nome.toUpperCase() !== nomeUf.toUpperCase()) {
       throw new AppErros(
-        `Não foi atualizar a UF de codigoUF = ${codigoUF}.<br>Motivo: já existe uma Unidade Federativa com o nome = ${nome} cadastrada no sistema.`,
+        `Não foi atualizar a UF de codigoUF = ${codigoUF}. Motivo: já existe uma Unidade Federativa com o nome = ${nome} cadastrada no sistema.`,
       );
     }
   }

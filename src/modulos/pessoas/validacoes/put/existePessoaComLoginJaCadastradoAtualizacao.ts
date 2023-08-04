@@ -12,7 +12,7 @@ async function existePessoaComLoginJaCadastradoAtualizacao(
     const existePessoa = await repositorioPessoa.encontrarPorLogin(login);
     if (existePessoa && login.toUpperCase() !== loginPessoa.toUpperCase()) {
       throw new AppErros(
-        `Não foi atualizar a pessoa de codigoPessoa = ${codigoPessoa}.<br>Motivo: já existe uma pessoa com o login = ${login} cadastrada no sistema.`,
+        `Não foi atualizar a pessoa de codigoPessoa = ${codigoPessoa}. Motivo: já existe uma pessoa com o login = ${login} cadastrada no sistema.`,
       );
     }
   }

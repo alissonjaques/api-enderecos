@@ -11,7 +11,7 @@ async function existeMunicipioBairro(
 
   if (!municipio) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o bairro no banco de dados.<br>Motivo: município com codigoMunicipio = ${codigoMunicipio} não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o bairro no banco de dados. Motivo: município com codigoMunicipio = ${codigoMunicipio} não encontrado.`,
       404,
     );
   }

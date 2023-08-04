@@ -14,7 +14,7 @@ async function existeBairroComNomeJaCadastradoNoMunicipio(
     );
     if (existeBairro) {
       throw new AppErros(
-        `Não foi possível inserir bairro.<br>Já existe um bairro com nome = ${nome} cadastrado no munípio de codigoMunicipio = ${codigoMunicipio}.`,
+        `Não foi possível inserir bairro. Já existe um bairro com nome = ${nome} cadastrado no munípio de codigoMunicipio = ${codigoMunicipio}.`,
       );
     }
   }

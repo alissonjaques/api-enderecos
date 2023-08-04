@@ -11,7 +11,7 @@ async function validarUfEstaEmUso(
   const estaEmUso = await repositorioUf.estaEmUso(codigoUF);
   if (estaEmUso && status == 2) {
     throw new AppErros(
-      `Não foi possível ${descricao} a UF de codigoUF = ${codigoUF}.<br>Motivo: existem municípios vinculados a essa UF, ${
+      `Não foi possível ${descricao} a UF de codigoUF = ${codigoUF}. Motivo: existem municípios vinculados a essa UF, ${
         descricao == 'atualizar' ? 'desative-os' : 'exclua-os'
       } antes de ${descricao == 'atualizar' ? 'desativar' : 'excluir'} a UF.`,
     );

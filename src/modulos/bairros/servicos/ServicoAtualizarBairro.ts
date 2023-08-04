@@ -25,13 +25,13 @@ class ServicoAtualizarBairro {
 
     if (!codigoBairro) {
       throw new AppErros(
-        `Não foi possível atualizar o bairro no banco de dados.<br>Motivo: o campo codigoBairro é obrigatório`,
+        `Não foi possível atualizar o bairro no banco de dados. Motivo: o campo codigoBairro é obrigatório`,
       );
     }
 
     if (!codigoMunicipio) {
       throw new AppErros(
-        `Não foi possível atualizar o bairro no banco de dados.<br>Motivo: o campo codigoMunicipio é obrigatório`,
+        `Não foi possível atualizar o bairro no banco de dados. Motivo: o campo codigoMunicipio é obrigatório`,
       );
     }
 

@@ -11,7 +11,7 @@ async function existeMunicipio(
 
   if (!municipio) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o município com codigoMunicipio = ${codigoMunicipio}.<br>Motivo: município não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o município com codigoMunicipio = ${codigoMunicipio}. Motivo: município não encontrado.`,
       404,
     );
   }

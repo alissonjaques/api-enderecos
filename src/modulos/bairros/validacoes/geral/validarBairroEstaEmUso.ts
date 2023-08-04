@@ -11,7 +11,7 @@ async function validarBairroEstaEmUso(
   const estaEmUso = await repositorioBairro.estaEmUso(codigoBairro);
   if (estaEmUso && status == 2) {
     throw new AppErros(
-      `Não foi possível ${descricao} o bairro de codigoBairro = ${codigoBairro}.<br>Motivo: existem endereços vinculados a esse bairro, ${
+      `Não foi possível ${descricao} o bairro de codigoBairro = ${codigoBairro}. Motivo: existem endereços vinculados a esse bairro, ${
         descricao == 'atualizar' ? 'desative-os' : 'exclua-os'
       } antes de ${
         descricao == 'atualizar' ? 'desativar' : 'excluir'

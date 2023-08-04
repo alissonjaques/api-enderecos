@@ -24,7 +24,7 @@ class ServicoAtualizarUf {
 
     if (!codigoUF) {
       throw new AppErros(
-        `Não foi possível atualizar o UF no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
+        `Não foi possível atualizar o UF no banco de dados. Motivo: o campo codigoUF é obrigatório`,
       );
     }
 

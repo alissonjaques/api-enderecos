@@ -25,13 +25,13 @@ class ServicoAtualizarMunicipio {
 
     if (!codigoMunicipio) {
       throw new AppErros(
-        `Não foi possível atualizar o município no banco de dados.<br>Motivo: o campo codigoMunicipio é obrigatório`,
+        `Não foi possível atualizar o município no banco de dados. Motivo: o campo codigoMunicipio é obrigatório`,
       );
     }
 
     if (!codigoUF) {
       throw new AppErros(
-        `Não foi possível atualizar o município no banco de dados.<br>Motivo: o campo codigoUF é obrigatório`,
+        `Não foi possível atualizar o município no banco de dados. Motivo: o campo codigoUF é obrigatório`,
       );
     }
 

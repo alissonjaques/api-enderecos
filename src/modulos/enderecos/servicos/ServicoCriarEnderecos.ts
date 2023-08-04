@@ -18,7 +18,7 @@ class ServicoCriarEnderecos {
       const endereco = enderecos[i];
       if (deveFericarPessoa && !endereco.codigoPessoa) {
         throw new AppErros(
-          `Não foi possível inserir o endereço no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
+          `Não foi possível inserir o endereço no banco de dados. Motivo: o campo codigoPessoa é obrigatório`,
         );
       }
       await validacoes.validar({

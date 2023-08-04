@@ -39,7 +39,7 @@ class ServicoAtualizarPessoa {
 
     if (!codigoPessoa) {
       throw new AppErros(
-        `Não foi possível atualizar a pessoa no banco de dados.<br>Motivo: o campo codigoPessoa é obrigatório`,
+        `Não foi possível atualizar a pessoa no banco de dados. Motivo: o campo codigoPessoa é obrigatório`,
       );
     }
 

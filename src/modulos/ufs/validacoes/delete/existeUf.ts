@@ -11,7 +11,7 @@ async function existeUf(
 
   if (!uf) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a UF com codigoUF = ${codigoUF}.<br>Motivo: UF não encontrada.`,
+      `Não foi possível ${descricaoMetodo} a UF com codigoUF = ${codigoUF}. Motivo: UF não encontrada.`,
       404,
     );
   }

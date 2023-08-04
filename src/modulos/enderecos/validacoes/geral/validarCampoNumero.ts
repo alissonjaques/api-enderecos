@@ -6,13 +6,13 @@ function validarCampoNumero(numero: string, descricaoMetodo: string): void {
   const valorNumero = Number(numero);
   if ((valorNumero && valorNumero < 1) || valorNumero == 0) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} endereco no banco de dados.<br>Motivo: o campo numero deve ser positivo, campo numero passado: ${numero}.`,
+      `Não foi possível ${descricaoMetodo} endereco no banco de dados. Motivo: o campo numero deve ser positivo, campo numero passado: ${numero}.`,
     );
   }
 
   if (!expressaoRegularApenasNumeros.test(numero)) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} endereco no banco de dados.<br>Motivo: o campo numero deve conter apenas números, campo numero passado: ${numero}.`,
+      `Não foi possível ${descricaoMetodo} endereco no banco de dados. Motivo: o campo numero deve conter apenas números, campo numero passado: ${numero}.`,
     );
   }
 }

@@ -5,7 +5,7 @@ function validarEmail(login: string, descricaoMetodo: string): void {
 
   if (!expressaoRegularEmail.test(login)) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados.<br>Motivo: o campo login deve ser um email (exemplo: nome@email.com), mas você passou: ${login}.`,
+      `Não foi possível ${descricaoMetodo} a pessoa no banco de dados. Motivo: o campo login deve ser um email (exemplo: nome@email.com), mas você passou: ${login}.`,
     );
   }
 }

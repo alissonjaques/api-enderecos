@@ -8,7 +8,7 @@ async function existePessoaComLoginJaCadastrado(login: string): Promise<void> {
     const existePessoa = await repositorioPessoa.encontrarPorLogin(login);
     if (existePessoa) {
       throw new AppErros(
-        `Não foi possível criar Pessoa.<br>Já existe uma pessoa com login = ${login} cadastrada no sistema.`,
+        `Não foi possível criar Pessoa. Já existe uma pessoa com login = ${login} cadastrada no sistema.`,
       );
     }
   }

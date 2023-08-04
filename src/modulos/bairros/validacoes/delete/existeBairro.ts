@@ -11,7 +11,7 @@ async function existeBairro(
 
   if (!bairro) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o bairro com codigoBairro = ${codigoBairro}.<br>Motivo: bairro não encontrado.`,
+      `Não foi possível ${descricaoMetodo} o bairro com codigoBairro = ${codigoBairro}. Motivo: bairro não encontrado.`,
       404,
     );
   }

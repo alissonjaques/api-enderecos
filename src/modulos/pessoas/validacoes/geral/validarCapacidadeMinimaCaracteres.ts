@@ -7,11 +7,11 @@ function validarCapacidadeMinimaCaracteres(
 ): void {
   if (nome.length < 3) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} pessoa no banco de dados.<br>Motivo: o campo nome deve possuir ao menos três caracteres.`,
+      `Não foi possível ${descricaoMetodo} pessoa no banco de dados. Motivo: o campo nome deve possuir ao menos três caracteres.`,
     );
   } else if (sobrenome.length < 3) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} pessoa no banco de dados.<br>Motivo: o campo sobrenome deve possuir ao menos três caracteres.`,
+      `Não foi possível ${descricaoMetodo} pessoa no banco de dados. Motivo: o campo sobrenome deve possuir ao menos três caracteres.`,
     );
   }
 }

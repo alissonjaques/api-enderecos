@@ -11,7 +11,7 @@ async function existeUfMunicipio(
 
   if (!uf) {
     throw new AppErros(
-      `Não foi possível ${descricaoMetodo} o município no banco de dados.<br>Motivo: UF com codigoUF = ${codigoUF} não encontrada.`,
+      `Não foi possível ${descricaoMetodo} o município no banco de dados. Motivo: UF com codigoUF = ${codigoUF} não encontrada.`,
       404,
     );
   }

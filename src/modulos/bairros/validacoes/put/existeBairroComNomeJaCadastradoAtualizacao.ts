@@ -16,7 +16,7 @@ async function existeBairroComNomeJaCadastradoAtualizacao(
     );
     if (existeBairro && nome.toUpperCase() !== nomeBairro.toUpperCase()) {
       throw new AppErros(
-        `Não foi possível atualizar o bairro de codigoBairro = ${codigoBairro}.<br>Motivo: já existe um bairro com o nome = ${nome} cadastrado no mesmo município.`,
+        `Não foi possível atualizar o bairro de codigoBairro = ${codigoBairro}. Motivo: já existe um bairro com o nome = ${nome} cadastrado no mesmo município.`,
       );
     }
   }
